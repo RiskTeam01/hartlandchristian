@@ -24,24 +24,19 @@
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
 <header class="site-header">
-  <div class="wrap site-header__inner">
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M96 241h320v32H96zM96 145h320v32H96zM96 337h320v32H96z"/></svg></button>
-    <a class="brand" href="/">
-      <span class="brand__crest">
-        <span class="brand__est" aria-hidden="true">Est.</span>
-        <img src="/assets/img/conquerors_logo.png" alt="Hartland Christian School Conquerors crest" width="60" height="90">
-        <span class="brand__est" aria-hidden="true">1980</span>
-      </span>
-      <span class="brand__name">Hartland Christian School</span>
-      <span class="sr-only">Established 1980</span>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M96 241h320v32H96zM96 145h320v32H96zM96 337h320v32H96z"/></svg></button>
+  <nav class="site-nav" id="site-nav" aria-label="Primary">
+    <button class="nav-close" type="button" aria-label="Close menu"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M405 136.8L375.2 107 256 226.2 136.8 107 107 136.8 226.2 256 107 375.2l29.8 29.8L256 285.8 375.2 405l29.8-29.8L285.8 256"/></svg></button>
+    <ul class="site-nav__list site-nav__list--left"><li><a href="/">home</a></li><li><a href="/about">about</a></li><li><a href="/church">church</a></li><li><a href="/admissions">admissions</a></li></ul>
+    <a class="brand__crest" href="/">
+      <span class="brand__est" aria-hidden="true">Est.</span>
+      <img src="/assets/img/conquerors_logo.png" alt="Hartland Christian School Conquerors crest" width="60" height="100">
+      <span class="brand__est" aria-hidden="true">1980</span>
+      <span class="sr-only">Hartland Christian School, established 1980</span>
     </a>
-    <nav class="site-nav" id="site-nav" aria-label="Primary">
-      <button class="nav-close" type="button" aria-label="Close menu"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M405 136.8L375.2 107 256 226.2 136.8 107 107 136.8 226.2 256 107 375.2l29.8 29.8L256 285.8 375.2 405l29.8-29.8L285.8 256"/></svg></button>
-      <ul class="site-nav__list">
-        <li><a href="/">home</a></li><li><a href="/about">about</a></li><li><a href="/church">church</a></li><li><a href="/admissions">admissions</a></li><li><a href="/academics" aria-current="page">academics</a></li><li><a href="/athletics">athletics</a></li><li><a href="/tuition">tuition</a></li><li><a href="/contact">contact</a></li>
-      </ul>
-    </nav>
-  </div>
+    <ul class="site-nav__list site-nav__list--right"><li><a href="/academics" aria-current="page">academics</a></li><li><a href="/athletics">athletics</a></li><li><a href="/tuition">tuition</a></li><li><a href="/contact">contact</a></li></ul>
+  </nav>
+  <a class="brand__name" href="/">Hartland Christian School</a>
 </header>
 <main id="main">
 <section class="hero">

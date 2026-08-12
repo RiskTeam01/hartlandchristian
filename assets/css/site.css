@@ -121,6 +121,19 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   text-align: center; white-space: nowrap;
 }
 .sec-head h2 em { font-style: normal; color: var(--blue-accent); }
+.sec-head h2 .tone-deep { color: var(--blue-deep); }
+/* nowrap keeps the rules tight to the words on wide screens, but a phone has
+   no room for it and the page scrolls sideways — let the heading wrap there. */
+@media (max-width: 760px) {
+  .sec-head { gap: .8rem; }
+  .sec-head h2 { white-space: normal; letter-spacing: .2em; }
+  .sec-head::before, .sec-head::after { min-width: .75rem; }
+}
+/* "Service Times & Location" is set in the serif display face, all black */
+.sec-head--serif h2 {
+  font-family: var(--f-display); text-transform: none; letter-spacing: .04em;
+  font-size: clamp(1.5rem, 3.4vw, 2.3rem); color: var(--ink);
+}
 
 .section { padding-block: clamp(3rem, 7vw, 5.5rem); }
 .section--grey { background: var(--grey); }
@@ -145,69 +158,89 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .btn .arw { transition: transform .3s; }
 .btn:hover .arw { transform: translateX(4px); }
 
-/* ================================================================== header */
-.site-header { position: sticky; top: 0; z-index: 100; background: #fff; }
-.site-header__inner { padding-block: 1rem .75rem; }
+/* ==================================================================  header
+   Eight links split either side of the crest. Each group carries the top and
+   bottom hairline and flexes out to the window edge, so the rules run full
+   bleed and break around the crest exactly as the original did. */
+.site-header { position: sticky; top: 0; z-index: 100; background: #fff; padding-block: 1.15rem 1rem; }
 
-.brand { display: flex; flex-direction: column; align-items: center; gap: .35rem; text-decoration: none; }
-.brand__crest { display: flex; align-items: center; justify-content: center; gap: 1rem; }
+.site-nav { display: flex; align-items: center; justify-content: center; }
+.site-nav__list {
+  flex: 1 1 0; min-width: 0;
+  display: flex; align-items: center; gap: clamp(.6rem, 1.9vw, 2.25rem);
+  border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink);
+  padding-block: .6rem;
+}
+.site-nav__list--left { justify-content: flex-end; padding-right: clamp(.75rem, 2vw, 2rem); }
+.site-nav__list--right { justify-content: flex-start; padding-left: clamp(.75rem, 2vw, 2rem); }
+.site-nav__list a {
+  font-family: var(--f-script); font-size: 16px; letter-spacing: .2em;
+  text-transform: lowercase; text-decoration: none; color: var(--ink);
+  white-space: nowrap; transition: color .4s;
+}
+.site-nav__list a:hover { color: #0a3cfa; }
+.site-nav__list a[aria-current="page"] { color: var(--blue-accent); }
+
+.brand__crest {
+  flex: 0 0 auto; display: flex; align-items: center; justify-content: center;
+  gap: clamp(.5rem, 1.4vw, 1rem); text-decoration: none; padding-inline: clamp(.5rem, 1.5vw, 1.25rem);
+}
 .brand__crest img { width: 60px; height: auto; }
 .brand__est {
   font-family: var(--f-script); font-style: italic; font-size: 15px;
   letter-spacing: .02em; color: var(--ink); line-height: 1;
 }
 .brand__name {
+  display: block; margin-top: 1.35rem;
   font-family: var(--f-script); font-style: italic; font-weight: 400;
-  font-size: clamp(1.15rem, 3.2vw, 1.875rem); letter-spacing: .34em;
-  color: var(--ink); text-align: center; line-height: 1.3;
+  font-size: clamp(1.1rem, 2.3vw, 1.875rem); letter-spacing: .34em;
+  color: var(--ink); text-align: center; line-height: 1.3; text-decoration: none;
   /* letter-spacing adds trailing space; nudge back to optical centre */
   text-indent: .34em;
 }
-
-.site-nav { margin-top: .85rem; }
-.site-nav__list {
-  display: flex; align-items: center; justify-content: center;
-  gap: clamp(.75rem, 2.2vw, 2.1rem);
-  border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink);
-  padding-block: .55rem;
-}
-.site-nav__list a {
-  font-family: var(--f-script); font-size: 16px; letter-spacing: .2em;
-  text-transform: lowercase; text-decoration: none; color: var(--ink);
-  transition: color .4s;
-}
-.site-nav__list a:hover { color: #0a3cfa; }
-.site-nav__list a[aria-current="page"] { color: var(--blue-accent); }
+/* the church wordmark is set smaller and in caps on the original */
+.brand__name--church { text-transform: uppercase; font-size: clamp(.8rem, 1.5vw, 1.25rem); }
 
 .nav-toggle { display: none; }
 
-/* mobile header */
+/* mobile header: hamburger at the left, crest centred, wordmark beneath */
+@media (max-width: 1100px) {
+  .site-nav__list { gap: clamp(.4rem, 1.2vw, 1.2rem); }
+  .site-nav__list a { font-size: 14px; letter-spacing: .12em; }
+}
 @media (max-width: 900px) {
-  :root { --header-h: 84px; }
-  .site-header__inner { display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; padding-block: .6rem; }
-  .brand { grid-column: 2; }
-  .brand__crest img { width: 38px; }
-  .brand__est { font-size: 12px; }
-  .brand__name { font-size: 1rem; letter-spacing: .18em; text-indent: .18em; }
+  :root { --header-h: 92px; }
+  .site-header { padding-block: .55rem .6rem; position: relative; }
   .nav-toggle {
-    display: flex; grid-column: 1; grid-row: 1; align-items: center; justify-content: center;
-    width: 44px; height: 44px; color: var(--ink);
+    display: flex; position: absolute; left: .5rem; top: 50%; transform: translateY(-50%);
+    align-items: center; justify-content: center; width: 44px; height: 44px; color: var(--ink); z-index: 2;
   }
   .nav-toggle svg { width: 26px; height: 26px; fill: currentColor; }
-  .site-nav {
-    position: fixed; inset: 0; margin: 0; background: #fff; z-index: 150;
-    display: grid; place-items: center; padding: 2rem;
-    opacity: 0; visibility: hidden; transition: opacity .25s;
+  .site-nav__list--left, .site-nav__list--right { display: none; }
+  .brand__crest { padding-inline: 0; }
+  .brand__crest img { width: 38px; }
+  .brand__est { font-size: 12px; }
+  .brand__name { margin-top: .4rem; font-size: 1rem; letter-spacing: .18em; text-indent: .18em; }
+  .brand__name--church { font-size: .8rem; }
+
+  /* the drawer reuses the same lists, stacked */
+  .site-nav[data-open="true"] {
+    position: fixed; inset: 0; background: #fff; z-index: 150;
+    flex-direction: column; justify-content: center; gap: 1.25rem; padding: 2rem;
+    animation: fadeIn .25s ease;
   }
-  .site-nav[data-open="true"] { opacity: 1; visibility: visible; }
-  .site-nav__list {
-    flex-direction: column; gap: 1.5rem; border: 0;
-    font-size: 1.25rem;
+  .site-nav[data-open="true"] .site-nav__list--left,
+  .site-nav[data-open="true"] .site-nav__list--right {
+    display: flex; flex: 0 0 auto; flex-direction: column; gap: 1.35rem;
+    border: 0; padding: 0; width: auto;
   }
-  .site-nav__list a { font-size: 1.25rem; letter-spacing: .22em; }
+  .site-nav[data-open="true"] .site-nav__list a { font-size: 1.25rem; letter-spacing: .22em; }
+  .site-nav[data-open="true"] .brand__crest { order: -1; margin-bottom: .5rem; }
+  .site-nav[data-open="true"] .nav-close { display: grid; }
+  @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
   .nav-close {
-    position: absolute; top: 1rem; right: 1rem; width: 44px; height: 44px;
-    display: grid; place-items: center;
+    display: none; position: absolute; top: 1rem; right: 1rem; width: 44px; height: 44px;
+    place-items: center;
   }
   .nav-close svg { width: 24px; height: 24px; fill: currentColor; }
 }
@@ -324,7 +357,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   font-family: var(--f-script); font-style: italic; font-size: 1.25rem;
   letter-spacing: .2em; text-decoration: none; display: inline-block;
 }
-.footer-main p { margin-top: .9rem; font-size: .85rem; font-weight: 600; letter-spacing: .06em; }
+.footer-main p { margin-top: .9rem; font-size: .85rem; font-weight: 600; letter-spacing: .06em; overflow-wrap: anywhere; }
 .footer-main a { text-decoration: none; }
 .footer-main a:hover { text-decoration: underline; }
 .footer-aside { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
@@ -336,12 +369,23 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .footer-legal { margin-top: 2rem; text-align: center; font-size: .72rem; letter-spacing: .08em; color: #666; }
 
 /* ========================================================== page banners */
+/* Title colour and size vary per page on the original — tuition is black at
+   46px, athletics blue at 46px, academics/admissions olive at 30px — so both
+   are driven by custom properties rather than one hard-coded rule. */
 .page-title { text-align: center; }
 .page-title h1 {
   font-family: var(--f-cond); text-transform: uppercase; letter-spacing: .3em;
-  font-size: clamp(1.6rem, 4vw, 2.3rem); color: var(--olive); line-height: 1.2;
+  font-size: var(--title-size, clamp(1.5rem, 3.2vw, 1.875rem));
+  color: var(--title-color, var(--olive)); line-height: 1.2;
 }
 .page-title h1 em { font-style: normal; color: var(--blue-accent); }
+.page-title--ink  { --title-color: var(--ink);  --title-size: clamp(1.75rem, 4.4vw, 2.875rem); }
+.page-title--blue { --title-color: #4444e5;     --title-size: clamp(1.75rem, 4.4vw, 2.875rem); }
+/* the contact heading keeps the serif display face, black, at a smaller size */
+.page-title--serif h1 {
+  font-family: var(--f-display); text-transform: none; letter-spacing: .1em;
+  color: var(--ink); font-size: clamp(1.6rem, 3.2vw, 1.875rem);
+}
 .page-title .rule { width: min(413px, 60%); height: 1px; background: var(--ink); opacity: .6; margin: 1.25rem auto 0; }
 .page-title p { margin-top: 1.75rem; text-align: center; }
 
@@ -460,7 +504,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .contact-list { display: grid; gap: 1.75rem; }
 .contact-row { display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 1.25rem; align-items: start; }
 .contact-row svg { width: 34px; height: 34px; fill: var(--navy); }
-.contact-row a { text-decoration: none; }
+/* the email address is one long unbreakable token on narrow screens */
+.contact-row a { text-decoration: none; overflow-wrap: anywhere; }
 .contact-row a:hover { text-decoration: underline; }
 .contact-row address { font-style: normal; line-height: 1.6; }
 .contact-note { margin-top: .35rem; font-size: .9rem; }

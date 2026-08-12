@@ -110,30 +110,33 @@ def header(active, church=False):
         crest, name, est = "conquerors_logo.png", SCHOOL, "1980"
         crest_alt = "Hartland Christian School Conquerors crest"
 
-    links = []
-    for href, label in NAV:
-        cur = ' aria-current="page"' if href == active else ""
-        links.append(f'<li><a href="{href}"{cur}>{label}</a></li>')
+    def items(pairs):
+        out = []
+        for href, label in pairs:
+            cur = ' aria-current="page"' if href == active else ""
+            out.append(f'<li><a href="{href}"{cur}>{label}</a></li>')
+        return "".join(out)
+
+    # The original splits the eight links either side of the crest, with the
+    # hairlines running from each group out to the edge of the window and
+    # breaking around the crest. The wordmark sits underneath the whole row.
+    left, right = NAV[:4], NAV[4:]
+    name_cls = "brand__name brand__name--church" if church else "brand__name"
 
     return f"""<header class="site-header">
-  <div class="wrap site-header__inner">
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">{ICON['burger']}</button>
-    <a class="brand" href="/">
-      <span class="brand__crest">
-        <span class="brand__est" aria-hidden="true">Est.</span>
-        <img src="/assets/img/{crest}" alt="{crest_alt}" width="60" height="90">
-        <span class="brand__est" aria-hidden="true">{est}</span>
-      </span>
-      <span class="brand__name">{name}</span>
-      <span class="sr-only">Established {est}</span>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">{ICON['burger']}</button>
+  <nav class="site-nav" id="site-nav" aria-label="Primary">
+    <button class="nav-close" type="button" aria-label="Close menu">{ICON['close']}</button>
+    <ul class="site-nav__list site-nav__list--left">{items(left)}</ul>
+    <a class="brand__crest" href="/">
+      <span class="brand__est" aria-hidden="true">Est.</span>
+      <img src="/assets/img/{crest}" alt="{crest_alt}" width="60" height="100">
+      <span class="brand__est" aria-hidden="true">{est}</span>
+      <span class="sr-only">{name}, established {est}</span>
     </a>
-    <nav class="site-nav" id="site-nav" aria-label="Primary">
-      <button class="nav-close" type="button" aria-label="Close menu">{ICON['close']}</button>
-      <ul class="site-nav__list">
-        {''.join(links)}
-      </ul>
-    </nav>
-  </div>
+    <ul class="site-nav__list site-nav__list--right">{items(right)}</ul>
+  </nav>
+  <a class="{name_cls}" href="/">{name}</a>
 </header>"""
 
 
@@ -285,7 +288,7 @@ def home():
         <img src="/assets/img/purpose-bible.jpg" alt="An open Bible" loading="lazy" width="340" height="492">
       </div>
       <div class="split__body prose">
-        <div class="sec-head sec-head--left"><h2 id="purpose-h">our <em>purpose</em></h2></div>
+        <div class="sec-head sec-head--left"><h2 id="purpose-h"><span class="tone-deep">our</span> <em>purpose</em></h2></div>
         <p>At {SCHOOL}, our purpose is clear: to provide a nurturing environment where students can grow academically, spiritually, and socially. Grounded in the belief that ALL truth comes from God, we are committed to integrating faith into every aspect of education.</p>
         <p>Our goal is to prepare students for a life centered around Christ, empowering them to reach their full potential in college, careers, and beyond. Through our curriculum, which utilizes the Accelerated Christian Education (ACE) pace system, students receive a comprehensive education from grades 1 through 12. Additionally, we offer extracurricular activities such as sports, art, music and more.</p>
         <p>At {SCHOOL}, we are dedicated to guiding and equipping students for success in all areas of life.</p>
@@ -484,7 +487,7 @@ def church():
 
 <section class="section" aria-labelledby="services-h">
   <div class="wrap">
-    <div class="sec-head"><h2 id="services-h">Service Times &amp; <em>Location</em></h2></div>
+    <div class="sec-head sec-head--serif"><h2 id="services-h">Service Times &amp; Location</h2></div>
     <div class="service-grid">
       <div>
         <iframe class="map-embed" src="{MAPS_EMBED}" title="Map to Hartland First Baptist Church" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
@@ -681,7 +684,7 @@ def athletics():
 
 <section class="section section--gradient" id="title-athletics" aria-labelledby="ath-h">
   <div class="wrap">
-    <div class="page-title">
+    <div class="page-title page-title--blue">
       <h1 id="ath-h">ATHLETICS</h1>
       <div class="rule" aria-hidden="true"></div>
       <p class="t-quote" style="max-width:768px;margin:1.75rem auto 0;font-family:var(--f-body);font-style:normal;color:#000;font-size:.9rem;letter-spacing:.02em">in the same way, let your light shine before others, so that they may see your good works and give glory to your father who is in heaven.<br><br>&mdash;matthew 5:16</p>
@@ -720,8 +723,8 @@ def athletics():
 def tuition():
     return f"""<section class="section section--gradient" id="title-tuition" aria-labelledby="tui-h">
   <div class="wrap">
-    <div class="page-title">
-      <h1 id="tui-h">TUITION &amp; <em>FEES</em></h1>
+    <div class="page-title page-title--ink">
+      <h1 id="tui-h">TUITION &amp; FEES</h1>
       <div class="rule" aria-hidden="true"></div>
     </div>
     <div class="tuition-note prose" style="margin-top:clamp(2rem,4vw,3rem)">
@@ -740,8 +743,8 @@ def tuition():
 def contact():
     return f"""<section class="section" id="title-contact" aria-labelledby="con-h">
   <div class="wrap">
-    <div class="page-title" style="margin-bottom:clamp(2rem,5vw,3.25rem)">
-      <h1 id="con-h" class="t-title" style="font-family:var(--f-display);letter-spacing:.1em;text-transform:none">Contact</h1>
+    <div class="page-title page-title--serif" style="margin-bottom:clamp(2rem,5vw,3.25rem)">
+      <h1 id="con-h">Contact</h1>
       <div class="rule" style="width:min(160px,40%)" aria-hidden="true"></div>
     </div>
 
