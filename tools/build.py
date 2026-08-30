@@ -503,26 +503,32 @@ def church():
   <div class="wrap">
     <div class="sec-head sec-head--serif"><h2 id="services-h">Service Times &amp; Location</h2></div>
     <div class="service-grid">
-      <div>
+      <div class="map-frame">
         <iframe class="map-embed" src="{MAPS_EMBED}" title="Map to Hartland First Baptist Church" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
       </div>
       <div class="service-list">
-        <div>
+        <div class="service-day">
           <h3>Sunday</h3>
           <ul>
-            <li><span>Sunday School</span><span>9:30 A.M.</span></li>
-            <li><span>Morning Service</span><span>10:30 A.M.</span></li>
-            <li><span>Evening Service</span><span>6:00 P.M.</span></li>
+            <li><span class="service-day__name">Sunday School</span><span class="service-day__time">9:30 A.M.</span></li>
+            <li><span class="service-day__name">Morning Service</span><span class="service-day__time">10:30 A.M.</span></li>
+            <li><span class="service-day__name">Evening Service</span><span class="service-day__time">6:00 P.M.</span></li>
           </ul>
         </div>
-        <div>
+        <div class="service-day">
           <h3>Wednesday</h3>
-          <ul><li><span>Prayer Meeting</span><span>6:30 P.M.</span></li></ul>
+          <ul>
+            <li><span class="service-day__name">Prayer Meeting</span><span class="service-day__time">6:30 P.M.</span></li>
+          </ul>
         </div>
-        <p>Classes available for all ages. Nursery is available for children 2 and under.</p>
-        <div>
-          <h3>Address</h3>
-          <p><a href="{MAPS_PLACE}" target="_blank" rel="noopener">10 Elm Street, Hartland, ME, 04943</a></p>
+        <p class="service-note">Classes available for all ages. Nursery is available for children 2 and under.</p>
+        <div class="service-address">
+          {ICON['pin']}
+          <div>
+            <h3>Address</h3>
+            <address>10 Elm Street, Hartland, ME, 04943</address>
+            <a class="service-directions" href="{MAPS_PLACE}" target="_blank" rel="noopener">get directions <span class="arw" aria-hidden="true">&rarr;</span></a>
+          </div>
         </div>
       </div>
     </div>
