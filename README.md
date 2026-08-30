@@ -77,14 +77,30 @@ These are the deliberate differences:
   JSON-LD block, `sitemap.xml` and `robots.txt`.
 - **Email address.** Published as a plain `mailto:` link instead of the old
   Cloudflare obfuscation, so it works without JavaScript.
-- **Spelling fixes** in body copy. The originals were: "more then conquerors"
-  (→ "than", matching the KJV and the old academics page), "ecompasses"
-  (→ "encompasses"), "throughoughly" (→ "thoroughly"), "out students"
-  (→ "our students"), "unforseen" (→ "unforeseen"), "HSC competes"
-  (→ "HCS"), "on the basis or race" (→ "of race"), "attend our game"
-  (→ "our games"), "externally existing" (→ "eternally", matching the about
-  page), and "of the Sons" in Matthew 28:19 (→ "of the Son"). Revert any of
-  these in `tools/build.py` if the wording was intentional.
+- **Original wording is preserved verbatim**, including its typos: "more then
+  conquerors" (but "than" on academics, which really does differ), "ecompasses",
+  "throughoughly", "out students", "HSC competes", "unforseen", "on the basis or
+  race", "attend our game", "externally existing", "of the Sons" in Matthew
+  28:19, and "Join us as journey together". These are deliberate — the brief is
+  to mirror the live site exactly. Fix them in `tools/build.py` if the school
+  ever wants them corrected.
+
+### Two deliberate deviations
+
+Everything else matches the source. These two do not, for stated reasons:
+
+1. **Email address.** The original hides it behind Cloudflare's JavaScript
+   obfuscation, which renders as "[email protected]" without scripting. The
+   rebuild prints `hartlandchristianschool@outlook.com` as a plain `mailto:`
+   link, which is what a visitor to the original actually ends up seeing.
+2. **The tuition message form.** Visually reproduced ("let's do this.", a
+   message box, SUBMIT, and the same thank-you state). The original posted to
+   Showit's contact-form service, which stops existing once the site leaves
+   Showit, so submitting now opens the sender's mail client addressed to the
+   school. Swap `initForm()` in `assets/js/site.js` for a real form handler
+   (Netlify Forms, Formspree, etc.) when one is available. Its heading is set
+   in white rather than the original's dark green, which was near-illegible on
+   the navy band.
 
 ## Things worth knowing
 

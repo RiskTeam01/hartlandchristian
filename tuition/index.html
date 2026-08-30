@@ -47,7 +47,7 @@
     </div>
     <div class="tuition-note prose" style="margin-top:clamp(2rem,4vw,3rem)">
       <p>At Hartland Christian School, we prioritize affordable education without compromising on the quality of our Christian teachings. We place a high value on maintaining a good testimony with our creditors. Therefore we ask that you help us to be able to keep our financial commitments by paying your tuition bills and fees faithfully and in a timely manner. Tuition responsibility is spread over 10 months, from August to May, with statements dispatched in the first week of each month and payment due by month-end. A $25.00 late fee will apply if payments are missed, with final payment expected before the school year concludes.</p>
-      <p>We recognize that unforeseen financial difficulties can arise. If you foresee a delay in your payment, please contact the school immediately to discuss arrangements with the board. Failure to communicate regarding missed payments may result in a temporary withdrawal of your child from school until financial stability is regained.</p>
+      <p>We recognize that unforseen financial difficulties can arise. If you foresee a delay in your payment, please contact the school immediately to discuss arrangements with the board. Failure to communicate regarding missed payments may result in a temporary withdrawal of your child from school until financial stability is regained.</p>
     </div>
     <div class="tuition-actions">
       <a class="btn btn--solid" href="https://1drv.ms/w/s!ArPiBpygPm4cvQoY3XyleWATQG-d?e=ohzFXC" target="_blank" rel="noopener">tuition &amp; fees information</a>
@@ -68,7 +68,21 @@
         <a class="btn btn--cta" href="/contact">questions? contact us</a>
       </div>
     </div>
-    <p class="cta__verse">&ldquo;in all these things we are more than conquerors through him that loved us.&rdquo; &mdash; romans 8:37 kjv</p>
+    <div class="cta-form">
+      <h3 class="cta-form__title">let&rsquo;s do this.</h3>
+      <form class="cta-form__body" id="tuition-form" novalidate>
+        <label class="sr-only" for="tuition-message">Message</label>
+        <textarea id="tuition-message" name="message" rows="5" required
+                  aria-describedby="tuition-form-status"></textarea>
+        <button class="btn btn--submit" type="submit">SUBMIT</button>
+        <p class="cta-form__status" id="tuition-form-status" role="status"></p>
+      </form>
+      <div class="cta-form__thanks" id="tuition-form-thanks" hidden>
+        <p class="cta-form__thanks-h">Thank you!</p>
+        <p>We&rsquo;ll be in touch soon!</p>
+      </div>
+    </div>
+    <p class="cta__verse">&ldquo;in all these things we are more then conquerors through him that loved us.&rdquo; &mdash; romans 8:37 kjv</p>
   </div>
 </section>
 </main>
