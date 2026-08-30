@@ -366,34 +366,60 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* =============================================================== footer */
 .site-footer { background: #fff; padding-block: clamp(2.5rem, 5vw, 3.25rem); border-top: 1px solid var(--grey); }
 .footer-grid {
-  display: grid; gap: clamp(1.75rem, 4vw, 2.5rem); align-items: start;
-  grid-template-columns: minmax(0, 1fr);
+  display: grid; gap: clamp(1.75rem, 4vw, 2.25rem); align-items: center;
+  grid-template-columns: minmax(0, 1fr); justify-items: center;
 }
-@media (min-width: 780px) { .footer-grid { grid-template-columns: auto 1px minmax(0, 1fr) 1px auto; } }
+/* equal side columns keep the centre block on the page's centre line */
+@media (min-width: 820px) {
+  .footer-grid {
+    grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1.7fr) 1px minmax(0, 1fr);
+    justify-items: stretch;
+    column-gap: clamp(1rem, 2vw, 1.75rem);
+  }
+}
 .footer-rule { display: none; background: var(--rule); }
-@media (min-width: 780px) { .footer-rule { display: block; align-self: stretch; } }
-.footer-nav { display: flex; gap: clamp(1.5rem, 4vw, 2.5rem); }
-.footer-nav ul { display: grid; gap: .35rem; }
+@media (min-width: 820px) { .footer-rule { display: block; align-self: stretch; min-height: 150px; } }
+
+.footer-nav { display: flex; align-items: center; gap: clamp(.75rem, 1.6vw, 1.5rem); justify-content: center; }
+@media (min-width: 820px) { .footer-nav { justify-content: flex-start; } }
+.footer-nav ul { display: grid; }
+.footer-nav__rule { width: 1px; align-self: stretch; background: var(--rule); }
 .footer-nav a {
-  font-family: var(--f-script); font-size: .95rem; letter-spacing: .18em;
-  text-transform: lowercase; text-decoration: none; transition: color .3s;
+  font-family: var(--f-body); font-weight: 300; font-size: .8125rem;
+  letter-spacing: .2em; line-height: 2.3; text-transform: uppercase;
+  text-decoration: none; transition: color .3s; white-space: nowrap;
 }
 .footer-nav a:hover { color: #0a3cfa; }
+
 .footer-main { text-align: center; }
 .footer-main__name {
-  font-family: var(--f-script); font-style: italic; font-size: 1.25rem;
-  letter-spacing: .2em; text-decoration: none; display: inline-block;
+  font-family: var(--f-cond); font-weight: 400; font-size: clamp(1rem, 1.65vw, 1.4375rem);
+  text-transform: uppercase; letter-spacing: .2em; line-height: 1.2;
+  text-decoration: none; display: inline-block; text-indent: .2em;
+  white-space: nowrap;  /* the original sets it on one line */
 }
-.footer-main p { margin-top: .9rem; font-size: .85rem; font-weight: 600; letter-spacing: .06em; overflow-wrap: anywhere; }
+@media (max-width: 480px) { .footer-main__name { white-space: normal; letter-spacing: .12em; text-indent: .12em; } }
+.footer-main p {
+  margin-top: .85rem; font-family: var(--f-body); font-weight: 300; font-size: .75rem;
+  text-transform: uppercase; letter-spacing: .2em; line-height: 1.8; overflow-wrap: anywhere;
+}
+.footer-main__bold { font-weight: 700; }
 .footer-main a { text-decoration: none; }
 .footer-main a:hover { text-decoration: underline; }
-.footer-aside { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
-.footer-aside img { width: 78px; }
-.footer-social { display: flex; align-items: center; gap: .9rem; }
-.footer-social a { display: grid; place-items: center; width: 30px; height: 30px; color: var(--ink); transition: color .3s; }
+
+.footer-aside { display: flex; align-items: center; justify-content: center; gap: clamp(1.25rem, 3vw, 2.5rem); }
+.footer-aside img { width: clamp(64px, 7vw, 90px); height: auto; }
+.footer-social { display: flex; align-items: center; gap: .7rem; }
+.footer-social__rule { width: 1px; height: 26px; background: var(--rule); }
+.footer-social a { display: grid; place-items: center; width: 28px; height: 28px; color: var(--ink); transition: color .3s; }
 .footer-social a:hover { color: var(--blue-accent); }
-.footer-social svg { width: 20px; height: 20px; fill: currentColor; }
-.footer-legal { margin-top: 2rem; text-align: center; font-size: .72rem; letter-spacing: .08em; color: #666; }
+.footer-social svg { width: 19px; height: 19px; fill: currentColor; }
+
+.footer-legal {
+  margin-top: clamp(1.75rem, 4vw, 2.25rem); text-align: center;
+  font-family: var(--f-body); font-weight: 300; font-size: .7rem;
+  letter-spacing: .14em; text-transform: uppercase; color: #6b6b6b;
+}
 
 /* ========================================================== page banners */
 /* Title colour and size vary per page on the original — tuition is black at
@@ -414,6 +440,24 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   color: var(--ink); font-size: clamp(1.6rem, 3.2vw, 1.875rem);
 }
 .page-title .rule { width: min(413px, 60%); height: 1px; background: var(--ink); opacity: .6; margin: 1.25rem auto 0; }
+
+/* rule — quote mark — rule, as under the athletics title */
+.rule-mark { display: flex; align-items: center; justify-content: center; gap: clamp(1rem, 3vw, 2rem); margin-top: 1.5rem; }
+.rule-mark::before, .rule-mark::after {
+  content: ""; flex: 0 1 413px; height: 1px; background: var(--ink); opacity: .75; min-width: 1.5rem;
+}
+.rule-mark__glyph { flex: 0 0 auto; display: grid; place-items: center; color: var(--ink); }
+.rule-mark__glyph svg { width: clamp(30px, 4vw, 46px); height: auto; fill: currentColor; }
+
+/* Montserrat, uppercase, widely tracked — the athletics scripture treatment */
+.verse-caps {
+  font-family: var(--f-body); font-weight: 400; font-size: clamp(.7rem, 1.3vw, .75rem);
+  text-transform: uppercase; letter-spacing: .26em; line-height: 1.5;
+  text-align: center; color: var(--ink);
+  max-width: 768px; margin: 1.75rem auto 0;
+}
+.verse-caps__ref { margin-top: 1.5rem; }
+@media (min-width: 760px) { .verse-caps__ref { text-align: right; padding-right: clamp(0rem, 6vw, 6rem); } }
 .page-title p { margin-top: 1.75rem; text-align: center; }
 
 /* scripture panel */

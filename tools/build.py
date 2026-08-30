@@ -15,7 +15,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SCHOOL = "Hartland Christian School"
 PHONE_HREF = "tel:+12079384250"
-PHONE_TEXT = "(207) 938-4250"
+PHONE_TEXT = "(207)938-4250"   # rendered exactly as the original site does
 EMAIL = "hartlandchristianschool@outlook.com"
 ADDRESS = "10 Elm Street, PO Box 510, Hartland, ME 04943"
 FACEBOOK = "https://www.facebook.com/profile.php?id=100057050606588"
@@ -192,26 +192,32 @@ def footer():
         return "<ul>" + "".join(
             f'<li><a href="{hrefs[i]}">{i}</a></li>' for i in items) + "</ul>"
 
+    # Side columns are equal width so the centre column sits on the page's
+    # centre line, as it does on the original — which is what the copyright
+    # line underneath needs to align with.
     return f"""<footer class="site-footer">
   <div class="wrap">
     <div class="footer-grid">
       <nav class="footer-nav" aria-label="Footer">
         {col(col1)}
+        <span class="footer-nav__rule" aria-hidden="true"></span>
         {col(col2)}
       </nav>
-      <div class="footer-rule" aria-hidden="true"></div>
+      <span class="footer-rule" aria-hidden="true"></span>
       <div class="footer-main">
         <a class="footer-main__name" href="/">hartland christian school</a>
-        <p><a href="{MAPS_PLACE}" target="_blank" rel="noopener">10 elm street, hartland, me 04943</a></p>
-        <p><a href="{PHONE_HREF}">{PHONE_TEXT}</a></p>
-        <p><a href="mailto:{EMAIL}">{EMAIL}</a></p>
+        <p class="footer-main__bold"><a href="{MAPS_PLACE}" target="_blank" rel="noopener">10 elm street, hartland, me 04943</a></p>
+        <p class="footer-main__bold"><a href="{PHONE_HREF}">{PHONE_TEXT}</a></p>
+        <p class="footer-main__email"><a href="mailto:{EMAIL}">{EMAIL}</a></p>
       </div>
-      <div class="footer-rule" aria-hidden="true"></div>
+      <span class="footer-rule" aria-hidden="true"></span>
       <div class="footer-aside">
-        <img src="/assets/img/conquerors_logo.png" alt="" width="78" height="117" loading="lazy">
+        <img src="/assets/img/conquerors_logo.png" alt="" width="90" height="140" loading="lazy">
         <div class="footer-social">
           <a href="{FACEBOOK}" target="_blank" rel="noopener" aria-label="Hartland Christian School on Facebook">{ICON['facebook']}</a>
+          <span class="footer-social__rule" aria-hidden="true"></span>
           <a href="mailto:{EMAIL}" aria-label="Email the school">{ICON['mail']}</a>
+          <span class="footer-social__rule" aria-hidden="true"></span>
           <a href="{PHONE_HREF}" aria-label="Call the school">{ICON['phone']}</a>
         </div>
       </div>
@@ -710,8 +716,9 @@ def athletics():
   <div class="wrap">
     <div class="page-title page-title--blue">
       <h1 id="ath-h">ATHLETICS</h1>
-      <div class="rule" aria-hidden="true"></div>
-      <p class="t-quote" style="max-width:768px;margin:1.75rem auto 0;font-family:var(--f-body);font-style:normal;color:#000;font-size:.9rem;letter-spacing:.02em">in the same way, let your light shine before others, so that they may see your good works and give glory to your father who is in heaven.<br><br>&mdash;matthew 5:16</p>
+      <div class="rule-mark" aria-hidden="true"><span class="rule-mark__glyph">{ICON['quote']}</span></div>
+      <p class="verse-caps">in the same way, let your light shine before others, so that they may see your good works and give glory to your father who is in heaven.</p>
+      <p class="verse-caps verse-caps__ref">-matthew 5:16</p>
     </div>
 
     <div class="athletics-lede" style="margin-top:clamp(2.5rem,5vw,3.5rem)">
