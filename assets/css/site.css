@@ -294,13 +294,22 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   transition: opacity .3s;
 }
 .carousel__btn:hover { opacity: .55; }
-.carousel__btn--prev { left: -.25rem; }
-.carousel__btn--next { right: -.25rem; }
+/* The track is inset so the arrows sit in their own gutter rather than on top
+   of the quote text or the slide image. */
+.carousel { padding-inline: 3.25rem; }
+@media (min-width: 900px) { .carousel { padding-inline: clamp(4rem, 5.5vw, 5.5rem); } }
+.carousel__btn--prev { left: 0; }
+.carousel__btn--next { right: 0; }
 .carousel__btn svg { width: 22px; height: 44px; stroke: currentColor; stroke-width: 1.5; fill: none; }
 @media (max-width: 720px) {
-  .carousel__btn { width: 38px; height: 48px; }
-  .carousel__btn--prev { left: -.75rem; }
-  .carousel__btn--next { right: -.75rem; }
+  .carousel { padding-inline: 2.5rem; }
+  .carousel__btn { width: 34px; height: 44px; }
+  .carousel__btn svg { width: 16px; height: 32px; }
+}
+@media (max-width: 420px) {
+  /* no room for a gutter on a small phone — swipe and the dots carry it */
+  .carousel { padding-inline: 0; }
+  .carousel__btn { display: none; }
 }
 .carousel__dots { display: flex; justify-content: center; gap: .6rem; margin-top: 1.75rem; }
 .carousel__dots button {
@@ -470,6 +479,24 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .verse-panel cite { display: block; margin-top: 1.25rem; font-style: normal; }
 
 .verse-card { background: #fff; padding: clamp(1.5rem, 4vw, 2rem); max-width: 480px; }
+/* translucent card floated over the photograph, as on the original */
+.photo-hero { position: relative; background: #fff; }
+.photo-hero > img { width: 100%; height: clamp(320px, 52vw, 731px); object-fit: cover; }
+.photo-hero__overlay {
+  position: absolute; inset: 0; display: flex; align-items: flex-end;
+  padding-bottom: clamp(1.25rem, 4vw, 3rem); pointer-events: none;
+}
+.photo-hero__overlay .wrap { display: flex; justify-content: flex-end; }
+.verse-card--float {
+  background: rgba(255, 255, 255, .8);
+  box-shadow: 4px 4px 5px rgba(0, 0, 0, .5);
+  pointer-events: auto; backdrop-filter: blur(1px);
+}
+@media (max-width: 640px) {
+  .photo-hero__overlay { position: static; padding: 0; }
+  .photo-hero__overlay .wrap { justify-content: center; margin-top: -3rem; }
+  .verse-card--float { background: rgba(255, 255, 255, .94); }
+}
 .verse-card p { font-family: var(--f-quote); font-style: italic; color: var(--muted); font-size: 1.05rem; letter-spacing: .1em; line-height: 1.6; text-align: center; }
 .verse-card cite { display: block; margin-top: 1rem; font-style: italic; font-family: var(--f-quote); color: var(--muted); font-size: .85rem; text-align: center; }
 

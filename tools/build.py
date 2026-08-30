@@ -346,13 +346,6 @@ def home():
 
 
 def about():
-    creed = [
-        'WE BELIEVE that &ldquo;all Scripture is given by inspiration of God&rdquo;, by which we understand the whole Bible is inspired in the sense that holy men of God &ldquo;were moved by the Holy Spirit&rdquo; to write the very words of Scripture.',
-        'WE BELIEVE that God is one God, eternally existing in three Persons &mdash; the Father, the Son, and the Holy Spirit &mdash; having precisely the same nature, attributes, and perfections, and worthy of precisely the same homage, confidence, and obedience.',
-        'WE BELIEVE that the Father is perfect in holiness, infinite in wisdom, measureless in power. We rejoice that He concerns Himself mercifully in the affairs of men, that He hears and answers prayer, and that He saves from sin and death all who come to Him through the Lord Jesus Christ.',
-        'WE BELIEVE that, as provided and proposed by, and as preannounced in the prophecies of the Scriptures, the eternal Son of God came into the world that He might manifest God to men, fulfill prophecy, and become the Redeemer of a lost world. To this end, He was born of the virgin, received a human body, and a sinless human nature.',
-    ]
-    creed_html = "".join(f"<li>{c}</li>" for c in creed)
 
     pillars = [
         ("pillar-spiritual.jpg", "Spiritual", "Our Christian School cultivates spiritual learning in children through daily scripture study, prayer, and fostering a supportive community grounded in Faith.", "Students in a school hallway"),
@@ -408,16 +401,6 @@ def about():
       </div>
     </div>
 
-    <div class="accordion mt-2" style="margin-top:clamp(2.5rem,6vw,4rem);padding-top:2rem">
-      <div class="accordion__head">
-        <h2 class="accordion__title">Statement of Faith</h2>
-      </div>
-      <p class="accordion__intro">The doctrinal statement of Hartland First Baptist Church is the doctrinal statement of {SCHOOL}. A brief summary is as follows:</p>
-      <button class="accordion__toggle" type="button" data-accordion-toggle aria-controls="creed" aria-expanded="true">{ICON['plus']} click to expand</button>
-      <div class="accordion__panel" id="creed" data-open="true">
-        <div><ul class="creed">{creed_html}</ul></div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -480,15 +463,16 @@ def church():
   <ul class="other-missions">{other_html}</ul>
 </div>""")
 
-    return f"""<section class="hero">
+    # The original floats the verse over the photograph in a translucent white
+    # card, low and to the right, rather than sitting it underneath.
+    return f"""<section class="photo-hero">
   <img src="/assets/img/church-hero.jpg" alt="Hartland First Baptist Church" width="1280" height="808" fetchpriority="high">
-</section>
-
-<section class="section section--tight">
-  <div class="wrap" style="display:flex;justify-content:flex-end">
-    <div class="verse-card">
-      <p>&ldquo;For God so loved the world, that He gave His only begotten Son, that whosoever believeth in Him should not perish, but have everlasting life.&rdquo;</p>
-      <cite>&mdash;John 3:16 KJV</cite>
+  <div class="photo-hero__overlay">
+    <div class="wrap">
+      <div class="verse-card verse-card--float">
+        <p>&ldquo;For God so loved the world, that He gave His only begotten Son, that whosoever believeth in Him should not perish, but have everlasting life.&rdquo;</p>
+        <cite>&mdash;John 3:16 KJV</cite>
+      </div>
     </div>
   </div>
 </section>
