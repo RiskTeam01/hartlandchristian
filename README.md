@@ -42,6 +42,7 @@ Editing an `.html` file by hand works, but the next build overwrites it.
 ```
 index.html              home
 about/ church/ admissions/ academics/ athletics/ tuition/ contact/
+tuition/fees/           the fee schedule, typeset from the school's Word document
 menu/                   plain link list, kept so the old /menu URL still resolves
 404.html
 assets/css/site.css     design tokens and every section pattern
@@ -101,6 +102,18 @@ Everything else matches the source. These two do not, for stated reasons:
    (Netlify Forms, Formspree, etc.) when one is available. Its heading is set
    in white rather than the original's dark green, which was near-illegible on
    the navy band.
+
+## Keeping tuition current
+
+`/tuition/fees` replaces the Word document the tuition button used to open. The
+figures are transcribed from the school's "Financial Information — Grades 1-12"
+sheet and **are a snapshot that will go stale**. When fees change, edit the
+`fee_card(...)` calls in the `fees()` function in `tools/build.py` — one row per
+line — and rebuild.
+
+The source document is still at `TUITION_DOC` in `tools/build.py` for reference.
+Its letterhead lists an out-of-date `@roadrunner.com` address; the site uses the
+current `@outlook.com` one throughout.
 
 ## Things worth knowing
 

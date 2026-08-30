@@ -54,6 +54,8 @@ ICON = {
     "plus": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5h2v14h-2z"/><path d="M5 11h14v2H5z"/></svg>',
     "cross": '<svg viewBox="0 0 32 40" aria-hidden="true" fill="currentColor"><path d="M13 0h6v10h10v6H19v24h-6V16H3v-6h10z"/></svg>',
     "quote": '<svg viewBox="0 0 32 32" aria-hidden="true" fill="currentColor"><path d="M13 6v8H8c0 4 1 6 4 7l-2 5c-5-2-7-6-7-13V6zm16 0v8h-5c0 4 1 6 4 7l-2 5c-5-2-7-6-7-13V6z"/></svg>',
+    "star": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.3-6.2 3.3L7 14.2l-5-4.9 6.9-1z"/></svg>',
+    "alert": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22zm0 6a1 1 0 0 1 1 1v5a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1m0 9.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5"/></svg>',
 }
 
 
@@ -753,12 +755,121 @@ def tuition():
       <p>We recognize that unforseen financial difficulties can arise. If you foresee a delay in your payment, please contact the school immediately to discuss arrangements with the board. Failure to communicate regarding missed payments may result in a temporary withdrawal of your child from school until financial stability is regained.</p>
     </div>
     <div class="tuition-actions">
-      <a class="btn btn--solid" href="{TUITION_DOC}" target="_blank" rel="noopener">tuition &amp; fees information</a>
+      <a class="btn btn--solid" href="/tuition/fees">tuition &amp; fees information</a>
     </div>
   </div>
 </section>
 
 {cta(form=True)}"""
+
+
+def fee_card(title, rows):
+    """rows: (label, sublabel|None, amount, subamount|None)"""
+    items = []
+    for label, sub, amt, subamt in rows:
+        name = f"{label}<small>{sub}</small>" if sub else label
+        value = f"{amt}<small>{subamt}</small>" if subamt else amt
+        items.append(f'<div><span class="fee-name">{name}</span>'
+                     f'<span class="fee-amt">{value}</span></div>')
+    return f'<div class="fee-card"><h3>{title}</h3><div class="fee-list">{"".join(items)}</div></div>'
+
+
+def fees():
+    """The school's "Financial Information — Grades 1-12" sheet, typeset as a
+    page instead of a Word download. Figures transcribed from that document."""
+    general = fee_card("General Fees", [
+        ("Tuition", None, "$2,400.00", "per student"),
+        ("Convention Fee", None, "$250.00", "per student"),
+        ("Art Fee", None, "$100.00", "per student"),
+        ("Graduation Fee", "12th grade", "$75.00", "per student"),
+        ("Hot Lunch Fee", None, "$180.00", "per student"),
+    ])
+    new_student = fee_card("New Student Fees", [
+        ("Academic Testing Fee", "grades 1-12", "$65.00", "per student"),
+        ("Registration Fee", "first student", "$150.00", None),
+        ("Registration Fee", "each additional student", "$50.00", None),
+    ])
+    home_school = fee_card("Home School Fees", [
+        ("Academic Electives", None, "$150.00", "per student, per semester"),
+        ("Arts &amp; Activities", None, "$55.00", "per student, per semester"),
+        ("Sports", None, "$100.00", "per student"),
+    ])
+    late = fee_card("Late Fees", [
+        ("Late payment", None, "$25.00", "per billing cycle"),
+    ])
+
+    policies = [
+        "HCS places a high value on maintaining a good testimony with its creditors. Therefore, we ask that you help us be able to keep our financial commitments by paying your tuition bills and fees faithfully and in a timely manner.",
+        "Your tuition obligation will be mailed to you each month over a ten-month period from August to May. Statements will be mailed out on the first week of the month, and the due date will be the end of the month. If the due date is missed, a $25.00 late fee will be added to the next month&rsquo;s statement. Final payment is due prior to the last day of school.",
+        "We understand that from time-to-time true financial hardships occur. If you know that your remittance is going to be late, please call the school immediately so that arrangements can be discussed with the school board. If a payment is missed and no contact is made with the school, then you may be asked to withdraw your child from school until such time as you are financially able to resume tuition payments.",
+        "Unless prior arrangements have been made, students with unpaid tuition and/or fee balances at the end of a semester may not be allowed to return to HCS the next semester until such time as the balance is paid in full. HCS will not release transcripts until all financial obligations are met. HCS Seniors will not receive diplomas until all financial obligations are met.",
+    ]
+    policy_html = "".join(f"<p>{p}</p>" for p in policies)
+
+    return f"""<div class="wrap page-back">
+  <a class="back-link" href="/tuition#title-tuition"><span class="arw" aria-hidden="true">&larr;</span> back to tuition overview</a>
+</div>
+
+<section class="section section--gradient section--tight" aria-labelledby="fees-title">
+  <div class="wrap">
+    <div class="page-title page-title--ink">
+      <h1 id="fees-title">TUITION &amp; FEES</h1>
+      <div class="rule" aria-hidden="true"></div>
+      <p class="band__grades" style="margin-top:1.25rem;color:var(--blue-deep)">Financial information &middot; Grades 1-12</p>
+    </div>
+    <div class="letterhead">
+      <p>10 Elm Street, Hartland, ME 04943</p>
+      <p class="letterhead__contact"><a href="{PHONE_HREF}">{PHONE_TEXT}</a><span class="sep">&nbsp;|&nbsp;</span><a href="mailto:{EMAIL}">{EMAIL}</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="schedule-h">
+  <div class="wrap">
+    <div class="sec-head"><h2 id="schedule-h">schedule of <em>fees</em></h2></div>
+    <div class="fee-grid">
+      {general}
+      {new_student}
+      {home_school}
+      {late}
+    </div>
+
+    <div class="stack" style="margin-top:clamp(2rem,4vw,3rem);max-width:940px;margin-inline:auto">
+      <div class="callout callout--gold">
+        {ICON['star']}
+        <div>
+          <h3>Discounts</h3>
+          <p>If the entire tuition bill (excluding all fees) is paid in full by the first (September 15th) billing cycle, a 10% discount over the entire applicable tuition will be applied.</p>
+        </div>
+      </div>
+      <div class="callout">
+        {ICON['alert']}
+        <div>
+          <h3>Please note</h3>
+          <p>Mandatory parent and school board meeting after two or more months delinquency in tuition payments.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--warm" aria-labelledby="policies-h">
+  <div class="wrap">
+    <div class="sec-head"><h2 id="policies-h">payment <em>policies</em></h2></div>
+    <div class="split" style="align-items:start">
+      <div class="tuition-crest">
+        <img src="/assets/img/conquerors_logo.png" alt="" width="190" height="286" loading="lazy">
+      </div>
+      <div class="policy-list prose">{policy_html}</div>
+    </div>
+    <div class="tuition-actions">
+      <a class="btn btn--solid" href="/admissions">start the enrollment process</a>
+      <a class="btn btn--ghost" href="/contact">ask about tuition</a>
+    </div>
+  </div>
+</section>
+
+{cta()}"""
 
 
 def contact():
@@ -857,6 +968,9 @@ PAGES = [
     ("tuition/index.html", "/tuition", "Tuition", f"Tuition & Fees | {SCHOOL}",
      "Affordable Christian education: how tuition is scheduled across the school year, and where to find the fee schedule.",
      "classroom.jpg", tuition, False),
+    ("tuition/fees/index.html", "/tuition/fees", "Fees", f"Tuition & Fee Schedule | {SCHOOL}",
+     "The full Hartland Christian School fee schedule for grades 1-12: tuition, general, new-student and home-school fees, discounts and payment policies.",
+     "classroom.jpg", fees, False, "/tuition"),
     ("contact/index.html", "/contact", "Contact", f"Contact | {SCHOOL}",
      "Visit, call or email Hartland Christian School at 10 Elm Street, Hartland, Maine 04943.",
      "church-exterior.jpg", contact, False),
@@ -873,10 +987,13 @@ def build():
     jsonld = JSONLD.format(email=EMAIL, fb=FACEBOOK)
     foot = footer().replace("{year}", "2026")
     written = []
-    for path, url, _label, title, desc, og, fn, is_church in PAGES:
+    for entry in PAGES:
+        path, url, _label, title, desc, og, fn, is_church = entry[:8]
+        # a sub-page can light up its parent's nav item
+        nav_active = entry[8] if len(entry) > 8 else url
         html = LAYOUT.format(
             title=title, description=desc, canonical=url, school=SCHOOL, og=og,
-            jsonld=jsonld, header=header(url, church=is_church), body=fn(), footer=foot,
+            jsonld=jsonld, header=header(nav_active, church=is_church), body=fn(), footer=foot,
         )
         dest = os.path.join(ROOT, path)
         os.makedirs(os.path.dirname(dest), exist_ok=True)
@@ -887,7 +1004,7 @@ def build():
     # sitemap
     urls = "".join(
         f"<url><loc>https://hartlandchristian.com{u}</loc></url>"
-        for _p, u, _l, _t, _d, _o, _f, _c in PAGES if u not in ("/menu", "/404"))
+        for e in PAGES for u in [e[1]] if u not in ("/menu", "/404"))
     with open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8") as f:
         f.write('<?xml version="1.0" encoding="UTF-8"?>\n'
                 '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'

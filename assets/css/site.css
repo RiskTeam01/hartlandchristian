@@ -701,7 +701,91 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* =========================================================== tuition page */
 .tuition-note { max-width: 940px; margin-inline: auto; }
 .tuition-note p { text-align: left; }
-.tuition-actions { display: flex; justify-content: center; margin-top: clamp(2rem, 4vw, 2.75rem); }
+.tuition-actions { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: clamp(2rem, 4vw, 2.75rem); }
+
+/* ------------------------------------------------- fee schedule (/tuition/fees) */
+.page-back { padding-top: clamp(1.25rem, 3vw, 2rem); }
+.back-link {
+  display: inline-flex; align-items: center; gap: .6rem;
+  font-family: var(--f-cond); text-transform: uppercase; letter-spacing: .16em;
+  font-size: .8rem; color: var(--navy); text-decoration: none;
+}
+.back-link:hover { text-decoration: underline; }
+.back-link .arw { transition: transform .3s; }
+.back-link:hover .arw { transform: translateX(-4px); }
+
+.letterhead { text-align: center; margin-top: clamp(1.5rem, 3vw, 2.25rem); }
+.letterhead p {
+  font-family: var(--f-body); font-weight: 300; font-size: .75rem;
+  text-transform: uppercase; letter-spacing: .2em; line-height: 2;
+}
+/* the email is one long unbreakable token on a narrow phone */
+.letterhead a { text-decoration: none; overflow-wrap: anywhere; }
+.letterhead a:hover { text-decoration: underline; }
+@media (max-width: 520px) {
+  .letterhead .sep { display: none; }
+  .letterhead .letterhead__contact a { display: block; }
+}
+
+/* two balanced columns — four cards otherwise land 3 + 1 */
+.fee-grid { display: grid; gap: clamp(1.5rem, 3vw, 2rem); grid-template-columns: minmax(0, 1fr); align-items: stretch; }
+@media (min-width: 760px) { .fee-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.fee-card {
+  background: #fff; border: 1px solid rgba(20, 30, 60, .1);
+  box-shadow: 0 2px 6px rgba(20, 30, 60, .05), 0 12px 30px rgba(20, 30, 60, .08);
+  padding: clamp(1.5rem, 3vw, 2rem);
+}
+.fee-card > h3 {
+  font-family: var(--f-cond); text-transform: uppercase; letter-spacing: .18em;
+  font-size: 1.05rem; color: var(--navy); line-height: 1.3;
+  padding-bottom: .85rem; border-bottom: 2px solid var(--navy); margin-bottom: .35rem;
+}
+.fee-list { display: grid; }
+.fee-list > div {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 1.25rem;
+  padding: .85rem 0; border-bottom: 1px solid rgba(20, 30, 60, .09);
+}
+.fee-list > div:last-child { border-bottom: 0; padding-bottom: 0; }
+.fee-name { font-family: var(--f-body); font-weight: 400; font-size: .95rem; letter-spacing: .03em; line-height: 1.45; }
+.fee-name small { display: block; font-weight: 300; font-size: .8rem; color: #5a5a5a; letter-spacing: .04em; }
+.fee-amt {
+  font-family: var(--f-cond); font-size: 1.15rem; letter-spacing: .04em;
+  color: var(--navy); white-space: nowrap; text-align: right;
+}
+.fee-amt small {
+  display: block; font-family: var(--f-body); font-weight: 300; font-size: .72rem;
+  letter-spacing: .06em; color: #5a5a5a; text-transform: uppercase; white-space: normal;
+}
+@media (max-width: 430px) {
+  .fee-list > div { flex-direction: column; align-items: flex-start; gap: .2rem; }
+  .fee-amt { text-align: left; }
+}
+
+.callout {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 1.1rem; align-items: start;
+  padding: clamp(1.25rem, 3vw, 1.75rem); border-left: 4px solid var(--navy);
+  background: rgba(36, 59, 138, .05);
+}
+.callout svg { width: 30px; height: 30px; fill: var(--navy); }
+.callout h3 {
+  font-family: var(--f-cond); text-transform: uppercase; letter-spacing: .16em;
+  font-size: 1rem; color: var(--navy); margin-bottom: .4rem;
+}
+.callout p { font-size: .95rem; line-height: 1.7; }
+.callout--gold { border-left-color: #8a7c2f; background: rgba(167, 152, 67, .12); }
+.callout--gold svg { fill: #8a7c2f; }
+.callout--gold h3 { color: #8a7c2f; }
+
+.policy-list { display: grid; gap: 1.25rem; max-width: 940px; }
+.policy-list p { font-size: .95rem; line-height: 1.8; text-align: left; }
+.tuition-crest { display: grid; place-items: start center; }
+.tuition-crest img { width: min(190px, 45vw); height: auto; }
+
+@media print {
+  .site-header, .site-footer, .section--navy, .skip-link, .page-back, .tuition-actions { display: none !important; }
+  .section { padding-block: 1rem; }
+  .fee-card { box-shadow: none; border: 1px solid #999; break-inside: avoid; }
+}
 
 /* ============================================================ menu page */
 .menu-page { min-height: 70vh; display: grid; place-items: center; padding-block: 4rem; }
