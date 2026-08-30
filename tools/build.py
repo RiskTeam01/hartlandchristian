@@ -693,11 +693,11 @@ def athletics():
 
     bball = team("boys basketball", "basketball-team.jpg",
                  "The Hartland Christian School boys basketball team",
-                 "headcoach: Mark Hansen<br>assistant coach: Ben Clukey",
+                 "headcoach: Mark Hansen<br>assistant coaches: Ben Clukey, Aaron Lamoreau, Rick Savage",
                  bball_years, "Boys basketball")
     vball = team("girls volleyball", "volleyball-team.jpg",
                  "The Hartland Christian School girls volleyball team",
-                 "headcoach: Rachael Parker<br>assistant coach: Sarah Shute",
+                 "headcoach: Rachael Parker<br>assistant coach: Julia Brooks",
                  vball_years, "Girls volleyball")
 
     return f"""<section class="hero hero--contain" style="background:#fff">
