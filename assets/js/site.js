@@ -156,6 +156,25 @@
     });
   }
 
+  /* ---------------------------------------------------------- back link
+     The handbook is linked from both /contact and /about, so point the back
+     link at whichever one the reader actually came from. Falls back to the
+     href already in the markup when there is no usable referrer. */
+  function initBackLink() {
+    var link = document.getElementById('hb-back');
+    if (!link || !document.referrer) return;
+    var from;
+    try { from = new URL(document.referrer); } catch (e) { return; }
+    if (from.origin !== window.location.origin) return;
+
+    var known = { '/about': 'about', '/contact': 'contact', '/admissions': 'admissions' };
+    var path = from.pathname.replace(/\/index\.html$/, '').replace(/\/$/, '') || '/';
+    if (!known[path]) return;
+    link.setAttribute('href', path);
+    var label = link.querySelector('.back-link__label');
+    if (label) label.textContent = 'back to ' + known[path];
+  }
+
   /* ------------------------------------------------------------------ boot */
   function ready(fn) {
     if (document.readyState !== 'loading') fn();
@@ -165,6 +184,7 @@
   ready(function () {
     initNav();
     initForm();
+    initBackLink();
     document.querySelectorAll('.carousel').forEach(initCarousel);
     document.querySelectorAll('[data-accordion-toggle]').forEach(initAccordion);
   });

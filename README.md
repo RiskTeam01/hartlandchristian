@@ -43,12 +43,14 @@ Editing an `.html` file by hand works, but the next build overwrites it.
 index.html              home
 about/ church/ admissions/ academics/ athletics/ tuition/ contact/
 tuition/fees/           the fee schedule, typeset from the school's Word document
+handbook/               the HCS Handbook 2026-2027, typeset from the school's Word document
 menu/                   plain link list, kept so the old /menu URL still resolves
 404.html
 assets/css/site.css     design tokens and every section pattern
 assets/js/site.js       mobile nav, carousels, statement-of-faith accordion
 assets/img/             41 images, downloaded from the previous site
 tools/build.py          page content and the generator
+tools/handbook.py       handbook content, kept apart so build.py stays readable
 ```
 
 ### Design tokens
@@ -114,6 +116,12 @@ line — and rebuild.
 The source document is still at `TUITION_DOC` in `tools/build.py` for reference.
 Its letterhead lists an out-of-date `@roadrunner.com` address; the site uses the
 current `@outlook.com` one throughout.
+
+`/handbook` is the same idea for the student handbook. Its content lives in
+`tools/handbook.py` as one `SECTIONS` list — each entry becomes a section and a
+contents-rail entry, so adding, editing or reordering a section is a local
+change. When the school issues a new handbook, update that file and bump
+`SCHOOL_YEAR` and `REVISED` at the top.
 
 ## Things worth knowing
 

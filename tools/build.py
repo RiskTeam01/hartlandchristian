@@ -10,8 +10,12 @@ with no build step required at deploy time.
 
 import os
 import re
+import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+import handbook as HB  # noqa: E402  (needs the path above)
 
 SCHOOL = "Hartland Christian School"
 PHONE_HREF = "tel:+12079384250"
@@ -368,7 +372,7 @@ def about():
         ("Our Athletics", "At HCS, we offer volleyball for girls and basketball for boys, catering to students in grades 6-12 who meet eligibility criteria. We promote a supportive atmosphere, encouraging good sportsmanship from all attendees. HSC competes with other Christian schools in the ACEL Christian Education league."),
         ("Our Conduct", "Our conduct guidelines are rooted in Christ&rsquo;s teachings, emphasizing love for God and others. Students are expected to show respect, obey rules cheerfully, and use good manners. Further details on conduct expectation can be found in our demerit policy."),
         ("Our Resources", "For additional information, please consult our handbook, which can be found here:"
-         f'<a class="doc-link" href="{HANDBOOK}" target="_blank" rel="noopener">{SCHOOL} Handbook</a>'),
+         f'<a class="doc-link" href="/handbook">HCS Handbook 2026-2027</a>'),
     ]
     ov_html = "".join(f"""<div class="overview__item">
   <h3><span class="pill">{t}</span></h3>
@@ -872,6 +876,49 @@ def fees():
 {cta()}"""
 
 
+def handbook_page():
+    """The HCS Handbook, typeset as a page with a sticky contents rail."""
+    toc = "".join(
+        f'<li><a href="#{sid}">{label}</a></li>' for sid, label, _h, _b in HB.SECTIONS)
+    body = "".join(f"""<section class="hb-section" id="{sid}" aria-labelledby="{sid}-h">
+  <h2 id="{sid}-h">{heading}</h2>
+  {content}
+</section>""" for sid, _label, heading, content in HB.SECTIONS)
+    staff = "".join(f"<div><dt>{role}</dt><dd>{name}</dd></div>" for role, name in HB.STAFF)
+
+    return f"""<div class="wrap page-back">
+  <a class="back-link" id="hb-back" href="/contact"><span class="arw" aria-hidden="true">&larr;</span> <span class="back-link__label">back to contact</span></a>
+</div>
+
+<section class="section section--gradient section--tight" aria-labelledby="hb-title">
+  <div class="wrap">
+    <div class="page-title page-title--ink">
+      <h1 id="hb-title">HCS HANDBOOK</h1>
+      <div class="rule" aria-hidden="true"></div>
+      <p class="band__grades" style="margin-top:1.25rem;color:var(--blue-deep)">{HB.SCHOOL_YEAR}</p>
+    </div>
+    <div class="letterhead">
+      <dl class="hb-staff">{staff}</dl>
+      <p>PO Box 510, 10 Elm St., Hartland, ME 04943</p>
+      <p class="letterhead__contact"><a href="{PHONE_HREF}">{PHONE_TEXT}</a><span class="sep">&nbsp;|&nbsp;</span><a href="mailto:{EMAIL}">{EMAIL}</a></p>
+      <p class="hb-revised">{HB.REVISED}</p>
+    </div>
+  </div>
+</section>
+
+<div class="wrap hb-layout">
+  <nav class="hb-toc" aria-labelledby="hb-toc-h">
+    <h2 id="hb-toc-h">Contents</h2>
+    <ol>{toc}</ol>
+  </nav>
+  <div class="hb-body">
+    {body}
+  </div>
+</div>
+
+{cta()}"""
+
+
 def contact():
     return f"""<section class="section" id="title-contact" aria-labelledby="con-h">
   <div class="wrap">
@@ -909,7 +956,7 @@ def contact():
           </div>
         </div>
         <p class="mt-2" style="font-size:.95rem">For additional information, please consult our handbook, which can be found here:</p>
-        <p><a class="doc-link" href="{HANDBOOK}" target="_blank" rel="noopener">{SCHOOL} Handbook</a></p>
+        <p><a class="doc-link" href="/handbook">HCS Handbook 2026-2027</a></p>
       </div>
     </div>
   </div>
@@ -974,6 +1021,9 @@ PAGES = [
     ("contact/index.html", "/contact", "Contact", f"Contact | {SCHOOL}",
      "Visit, call or email Hartland Christian School at 10 Elm Street, Hartland, Maine 04943.",
      "church-exterior.jpg", contact, False),
+    ("handbook/index.html", "/handbook", "Handbook", f"HCS Handbook {HB.SCHOOL_YEAR} | {SCHOOL}",
+     f"The Hartland Christian School handbook for {HB.SCHOOL_YEAR}: admissions, attendance, curriculum, daily procedures, conduct, personal appearance, fees and reconciliation.",
+     "classroom.jpg", handbook_page, False, "/about"),
     ("menu/index.html", "/menu", "Menu", f"Menu | {SCHOOL}",
      "Site menu for Hartland Christian School.",
      "church-hero.jpg", menu, False),
