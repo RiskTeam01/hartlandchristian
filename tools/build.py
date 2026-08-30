@@ -778,21 +778,21 @@ def fees():
     """The school's "Financial Information — Grades 1-12" sheet, typeset as a
     page instead of a Word download. Figures transcribed from that document."""
     general = fee_card("General Fees", [
-        ("Tuition", None, "$2,400.00", "per student"),
+        ("Tuition", None, "$2,600.00", "per student"),
         ("Convention Fee", None, "$250.00", "per student"),
         ("Art Fee", None, "$100.00", "per student"),
-        ("Graduation Fee", "12th grade", "$75.00", "per student"),
+        ("Graduation Fee", "12th grade", "$100.00", "per student"),
         ("Hot Lunch Fee", None, "$180.00", "per student"),
     ])
     new_student = fee_card("New Student Fees", [
-        ("Academic Testing Fee", "grades 1-12", "$65.00", "per student"),
+        ("Academic Testing Fee", "grades 1-12", "$75.00", "per student"),
         ("Registration Fee", "first student", "$150.00", None),
         ("Registration Fee", "each additional student", "$50.00", None),
     ])
     home_school = fee_card("Home School Fees", [
         ("Academic Electives", None, "$150.00", "per student, per semester"),
         ("Arts &amp; Activities", None, "$55.00", "per student, per semester"),
-        ("Sports", None, "$100.00", "per student"),
+        ("Sports", None, "$150.00", "per student"),
     ])
     late = fee_card("Late Fees", [
         ("Late payment", None, "$25.00", "per billing cycle"),
