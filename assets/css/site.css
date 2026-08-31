@@ -212,8 +212,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   :root { --header-h: 96px; }
   /* keep the sticky bar compact — it costs screen on every scroll */
   .site-header { padding-block: .3rem .35rem; position: relative; }
+  /* menu button sits on the right, where the drawer's close button also is */
   .nav-toggle {
-    display: flex; position: absolute; left: .5rem; top: 50%; transform: translateY(-50%);
+    display: flex; position: absolute; right: .5rem; top: 50%; transform: translateY(-50%);
     align-items: center; justify-content: center; width: 44px; height: 44px; color: var(--ink); z-index: 2;
   }
   .nav-toggle svg { width: 26px; height: 26px; fill: currentColor; }
