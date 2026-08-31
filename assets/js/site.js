@@ -127,35 +127,6 @@
     });
   }
 
-  /* ----------------------------------------------------------- message form
-     The original posted to Showit's contact-form service. That endpoint goes
-     away with Showit, so rather than silently swallowing a parent's message
-     this hands off to the school's mailbox and then shows the same thank-you
-     state the original did. Replace with a real form handler when one exists. */
-  function initForm() {
-    var form = document.getElementById('tuition-form');
-    if (!form) return;
-    var field = document.getElementById('tuition-message');
-    var status = document.getElementById('tuition-form-status');
-    var thanks = document.getElementById('tuition-form-thanks');
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var msg = (field.value || '').trim();
-      if (!msg) {
-        status.textContent = 'Please enter a message before sending.';
-        field.focus();
-        return;
-      }
-      status.textContent = '';
-      window.location.href = 'mailto:hartlandchristianschool@outlook.com'
-        + '?subject=' + encodeURIComponent('Tuition enquiry from the website')
-        + '&body=' + encodeURIComponent(msg);
-      form.hidden = true;
-      thanks.hidden = false;
-    });
-  }
-
   /* ---------------------------------------------------------- back link
      The handbook is linked from both /contact and /about, so point the back
      link at whichever one the reader actually came from. Falls back to the
@@ -183,7 +154,6 @@
 
   ready(function () {
     initNav();
-    initForm();
     initBackLink();
     document.querySelectorAll('.carousel').forEach(initCarousel);
     document.querySelectorAll('[data-accordion-toggle]').forEach(initAccordion);

@@ -146,30 +146,10 @@ def header(active, church=False):
 </header>"""
 
 
-def cta(enroll="/admissions", visit="/contact", ask="/contact", verse_than=False, form=False):
+def cta(enroll="/admissions", visit="/contact", ask="/contact", verse_than=False):
     # every page misspells this as "then" except academics, which does not
     conq = "than" if verse_than else "then"
 
-    # The tuition page carries a "let's do this." message form in this band.
-    # The original posted to Showit's contact-form service, which disappears
-    # with Showit, so the submit hands off to the school's mailbox instead and
-    # the page then shows the same thank-you state the original did.
-    form_html = ""
-    if form:
-        form_html = f"""<div class="cta-form">
-      <h3 class="cta-form__title">let&rsquo;s do this.</h3>
-      <form class="cta-form__body" id="tuition-form" novalidate>
-        <label class="sr-only" for="tuition-message">Message</label>
-        <textarea id="tuition-message" name="message" rows="5" required
-                  aria-describedby="tuition-form-status"></textarea>
-        <button class="btn btn--submit" type="submit">SUBMIT</button>
-        <p class="cta-form__status" id="tuition-form-status" role="status"></p>
-      </form>
-      <div class="cta-form__thanks" id="tuition-form-thanks" hidden>
-        <p class="cta-form__thanks-h">Thank you!</p>
-        <p>We&rsquo;ll be in touch soon!</p>
-      </div>
-    </div>"""
     return f"""<section class="section section--navy" aria-labelledby="cta-h">
   <div class="wrap">
     <div class="cta">
@@ -183,8 +163,7 @@ def cta(enroll="/admissions", visit="/contact", ask="/contact", verse_than=False
         <a class="btn btn--cta" href="{ask}">questions? contact us</a>
       </div>
     </div>
-    {form_html}
-    <p class="cta__verse">&ldquo;in all these things we are more {conq} conquerors through him that loved us.&rdquo; &mdash; romans 8:37 kjv</p>
+    <p class="cta__verse">&ldquo;In all these things we are more {conq} conquerors through Him that loved us.&rdquo; &mdash; Romans 8:37 KJV</p>
   </div>
 </section>"""
 
@@ -281,12 +260,12 @@ def home():
          "his CPA. if you are looking for a place to educate your children successfully and instill "
          "in them Godly values, schools don&rsquo;t get much better than HCS."),
         ("review-curtis.jpg", "The Curtis family", "-the curtis family",
-         "HAVING BEEN A PART OF HARTLAND CHRISTIAN SCHOOL FROM MY EARLY YEARS THROUGH GRADUATION, I "
-         "CAN ATTEST TO THE SCHOOL&rsquo;S DEDICATION TO BOTH ACADEMIC EXCELLENCE AND SPIRITUAL "
-         "GROWTH. HARTLAND NOT ONLY PREPARED ME FOR HIGHER EDUCATION, BUT ALSO NURTURED MY VALUES AS "
-         "A FUTURE SPOUSE AND ACTIVE CHURCH MEMBER. I&rsquo;M CONFIDENT IN RECOMMENDING HARTLAND TO "
-         "OTHERS SEEKING A NURTURING ENVIRONMENT THAT FOSTERS BOTH ACADEMIC GROWTH AND SPIRITUAL "
-         "DEVELOPMENT."),
+         "Having been a part of Hartland Christian School from my early years through graduation, I "
+         "can attest to the school&rsquo;s dedication to both academic excellence and spiritual "
+         "growth. Hartland not only prepared me for higher education, but also nurtured my values as "
+         "a future spouse and active church member. I&rsquo;m confident in recommending Hartland to "
+         "others seeking a nurturing environment that fosters both academic growth and spiritual "
+         "development."),
     ]
     slides = []
     for img, alt, by, text in reviews:
@@ -621,9 +600,9 @@ def academics():
 def admissions():
     steps = [
         ("please read our handbook throughoughly",
-         'Before proceeding with enrollment, we encourage all prospective families to thoroughly review our handbook. This document outlines our school policies, procedures, and expectations, ensuring that all parties have a clear understanding of our educational philosophy and community standards. Our handbook can be found under the <a href="/about">About</a> tab.'),
+         'Before proceeding with enrollment, we encourage all prospective families to thoroughly review our handbook. This document outlines our school policies, procedures, and expectations, ensuring that all parties have a clear understanding of our educational philosophy and community standards. Our handbook can be found <a href="/handbook">here</a>.'),
         ("complete and submit the application form",
-         'After reviewing our handbook, the next step is to complete and submit the application form. This form provides us with essential information about the student, their academic history, and their family background, helping us ensure that we can meet the student&rsquo;s educational needs. To obtain our application form, kindly reach out to us under the <a href="/contact">Contact</a> tab.'),
+         'After reviewing our handbook, the next step is to complete and submit the application form. This form provides us with essential information about the student, their academic history, and their family background, helping us ensure that we can meet the student&rsquo;s educational needs. To obtain our application form, kindly <a href="/contact">contact us</a>.'),
         ("diagnostic testing",
          "As part of our commitment to personalized education, we conduct diagnostic testing to assess each student&rsquo;s academic abilities and identify any areas that may require additional support or enrichment. This testing helps us tailor our instructional approach to meet the unique needs of each student."),
         ("meet with school board",
@@ -764,7 +743,7 @@ def tuition():
   </div>
 </section>
 
-{cta(form=True)}"""
+{cta()}"""
 
 
 def fee_card(title, rows):
