@@ -132,6 +132,14 @@ lists the section, its hit count and the surrounding sentence. Sections are
 indexed straight from the rendered DOM, so new sections are searchable with no
 extra work.
 
+Families search for the words they use at home, not the handbook's own headings,
+so the box also carries a synonym map — `HB_SYNONYMS` in `assets/js/site.js`.
+"dress code" finds Personal Appearance, "snow day" finds cancellations,
+"punishment" finds demerits and detention. Synonym hits are listed separately
+under "Related" so it stays clear what matched literally. Add entries freely:
+each key is a word or phrase a parent might type, and its value lists the terms
+the handbook actually uses.
+
 ## Things worth knowing
 
 - The tuition and handbook links point at OneDrive and Google Docs documents

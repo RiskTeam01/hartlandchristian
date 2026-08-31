@@ -150,6 +150,115 @@
      Indexes each section's text once on load, then matches either the whole
      phrase or every word typed. Results name the section, count the hits and
      show the surrounding sentence, and jump to that section when clicked. */
+  /* Families search for the words they use at home; the handbook uses its own
+     vocabulary. This maps the former onto the latter — "dress code" finds
+     Personal Appearance, "snow day" finds cancellations. Each key is matched
+     against the query, and its terms are searched as alternatives. Add freely:
+     keys may be single words or phrases. */
+  var HB_SYNONYMS = {
+    'dress code': ['personal appearance', 'clothing', 'modest'],
+    'uniform': ['personal appearance', 'clothing'],
+    'what to wear': ['personal appearance', 'clothing'],
+    'attire': ['personal appearance', 'clothing'],
+    'clothes': ['clothing', 'personal appearance'],
+    'jewelry': ['earrings', 'piercing'],
+    'makeup': ['make-up', 'nail polish'],
+    'tattoo': ['tattoo', 'body art'],
+    'haircut': ['haircuts', 'hair'],
+    'shoes': ['dress shoes', 'sneakers', 'sandals'],
+
+    'late': ['tardy', 'late fee'],
+    'lateness': ['tardy'],
+    'absent': ['absence', 'excused'],
+    'missing school': ['absence', 'excused', 'attendance'],
+    'vacation': ['absence', 'excused'],
+    'sick': ['ill students', 'illness'],
+    'fever': ['ill students', 'fever'],
+
+    'phone': ['cell phones', 'telephone'],
+    'cellphone': ['cell phones'],
+    'mobile': ['cell phones'],
+    'technology': ['electronic devices', 'computer science'],
+    'laptop': ['electronic devices'],
+    'tablet': ['electronic devices'],
+    'ipad': ['electronic devices'],
+
+    'punishment': ['demerit', 'detention', 'discipline'],
+    'trouble': ['demerit', 'detention', 'discipline'],
+    'bullying': ['hands off', 'fighting', 'conduct'],
+    'expelled': ['expulsion'],
+    'suspended': ['suspension'],
+
+    'cost': ['tuition', 'fee'],
+    'price': ['tuition', 'fee'],
+    'money': ['tuition', 'fee', 'payment'],
+    'pay': ['payment', 'tuition', 'billing'],
+    'billing': ['billing cycle', 'statements'],
+    'financial aid': ['discount', 'financial'],
+    'scholarship': ['discount', 'financial'],
+
+    'snow day': ['cancellation', 'closings'],
+    'closing': ['cancellation', 'closings'],
+    'weather': ['cancellation', 'cold weather'],
+
+    'food': ['lunch', 'snack'],
+    'cafeteria': ['lunch', 'lunch tables'],
+    'eating': ['lunch', 'snack'],
+
+    'sports': ['volleyball', 'basketball', 'athletics'],
+    'teams': ['volleyball', 'basketball', 'sports teams'],
+    'basketball': ['basketball', 'conquerors sports'],
+    'volleyball': ['volleyball', 'conquerors sports'],
+
+    'grades': ['report cards', 'quarter', 'score'],
+    'grading': ['report cards', 'score', 'scoring'],
+    'report card': ['report cards', 'quarter'],
+    'gpa': ['credits', 'report cards'],
+    'exam': ['pace test', 'self-test', 'checkup'],
+    'quiz': ['checkup', 'self-test'],
+    'testing': ['diagnostic testing', 'pace test'],
+
+    'diploma': ['diploma', 'graduation', 'credits'],
+    'apply': ['application', 'admissions'],
+    'application': ['application', 'admissions'],
+    'sign up': ['application', 'admissions'],
+    'register': ['registration', 'admissions'],
+    'new student': ['transfer students', 'registration', 'probationary'],
+    'transferring': ['transfer students'],
+
+    'teacher': ['supervisor', 'monitor'],
+    'faculty': ['supervisor', 'monitor', 'administrator'],
+    'principal': ['administrator'],
+    'staff': ['supervisor', 'monitor', 'administrator'],
+
+    'curriculum': ['curriculum', 'a.c.e.', 'paces'],
+    'classes': ['courses', 'curriculum'],
+    'subjects': ['courses', 'curriculum'],
+    'homework': ['homework'],
+
+    'complaint': ['grievance', 'complaints'],
+    'concern': ['grievance', 'reconciliation'],
+    'problem': ['grievance', 'conflicts'],
+
+    'parking': ['parking lot', 'vehicles'],
+    'driving': ['vehicles', 'transportation'],
+    'car': ['vehicles', 'transportation'],
+    'bus': ['transportation'],
+
+    'volunteer': ['volunteers', 'snack shop', 'boosters'],
+    'fundraising': ['boosters'],
+    'field trip': ['field trips'],
+    'chapel': ['chapel', 'devotions'],
+    'worship': ['devotions', 'chapel'],
+    'prayer': ['prayer', 'devotions'],
+    'schedule': ['order of the day', 'recess'],
+    'hours': ['order of the day'],
+    'withdraw': ['withdraw', 'dismissal'],
+    'records': ['transcripts', 'medical records'],
+    'immunization': ['medical records'],
+    'health': ['medical records', 'health']
+  };
+
   function initHandbookSearch() {
     var wrap = document.querySelector('[data-hb-search]');
     if (!wrap) return;
@@ -181,6 +290,12 @@
       });
     }
 
+    // Words too common to be worth counting on their own — otherwise a query
+    // like "what to wear" scores every "to" in the section.
+    var STOP = ['a', 'an', 'and', 'are', 'as', 'at', 'be', 'but', 'by', 'can', 'do', 'does',
+      'for', 'from', 'how', 'i', 'in', 'is', 'it', 'my', 'of', 'on', 'or', 'our', 'the',
+      'to', 'was', 'we', 'what', 'when', 'where', 'which', 'who', 'will', 'with', 'you', 'your'];
+
     // Where does this entry match, and how often?
     function findHits(entry, phrase, words) {
       var hits = [];
@@ -191,10 +306,12 @@
         i = entry.lower.indexOf(phrase, i + phrase.length);
       }
       if (hits.length) { hits.phrase = true; return hits; }
-      // no whole-phrase match: require every word to appear somewhere
-      var all = words.every(function (w) { return entry.lower.indexOf(w) !== -1; });
+      // no whole-phrase match: require every meaningful word to appear somewhere
+      var useful = words.filter(function (w) { return STOP.indexOf(w) === -1 && w.length > 2; });
+      if (!useful.length) useful = words;
+      var all = useful.every(function (w) { return entry.lower.indexOf(w) !== -1; });
       if (!all) return [];
-      words.forEach(function (w) {
+      useful.forEach(function (w) {
         var j = entry.lower.indexOf(w);
         while (j !== -1 && hits.length < 200) {
           hits.push([j, j + w.length]);
@@ -203,6 +320,21 @@
       });
       hits.sort(function (a, b) { return a[0] - b[0]; });
       return hits;
+    }
+
+    // Which handbook terms should we also look for, given what was typed?
+    function synonymTerms(phrase, words) {
+      var out = [];
+      Object.keys(HB_SYNONYMS).forEach(function (key) {
+        var asked = phrase.indexOf(key) !== -1 || words.indexOf(key) !== -1;
+        if (!asked) return;
+        HB_SYNONYMS[key].forEach(function (t) {
+          // skip anything the literal search would already have found
+          if (phrase.indexOf(t) !== -1 || out.indexOf(t) !== -1) return;
+          out.push(t);
+        });
+      });
+      return out;
     }
 
     function snippet(entry, hit) {
@@ -240,8 +372,22 @@
         return b.hits.length - a.hits.length;
       });
 
+      // Second pass on the handbook's own wording for what was typed.
+      var terms = synonymTerms(phrase, words);
+      var already = matches.map(function (m) { return m.entry.id; });
+      var related = [];
+      terms.forEach(function (t) {
+        index.forEach(function (entry) {
+          if (already.indexOf(entry.id) !== -1) return;
+          var at = entry.lower.indexOf(t);
+          if (at === -1) return;
+          already.push(entry.id);
+          related.push({ entry: entry, hit: [at, at + t.length], term: t });
+        });
+      });
+
       clear.hidden = false;
-      if (!matches.length) {
+      if (!matches.length && !related.length) {
         results.innerHTML = '<li class="hb-results__empty">No sections match &ldquo;' + esc(q.trim()) + '&rdquo;.</li>';
         results.hidden = false;
         count.textContent = 'No matches.';
@@ -249,17 +395,39 @@
         return;
       }
 
-      var total = matches.reduce(function (n, m) { return n + m.hits.length; }, 0);
-      count.textContent = total + ' match' + (total === 1 ? '' : 'es') + ' in ' +
-        matches.length + ' section' + (matches.length === 1 ? '' : 's') + '.';
-
-      results.innerHTML = matches.map(function (m) {
+      var html = matches.map(function (m) {
         return '<li><a href="#' + m.entry.id + '" data-hb-jump="' + m.entry.id + '">' +
           '<span class="hb-results__title">' + esc(m.entry.title) +
           '<span class="hb-results__n">' + m.hits.length + '</span></span>' +
           '<span class="hb-results__snip">' + snippet(m.entry, m.hits[0]) + '</span>' +
           '</a></li>';
       }).join('');
+
+      if (related.length) {
+        html += '<li class="hb-results__group">' +
+          (matches.length ? 'Related' : 'The handbook calls this') + '</li>' +
+          related.map(function (r) {
+            return '<li><a href="#' + r.entry.id + '" data-hb-jump="' + r.entry.id + '">' +
+              '<span class="hb-results__title">' + esc(r.entry.title) +
+              '<span class="hb-results__n hb-results__n--soft">' + esc(r.term) + '</span></span>' +
+              '<span class="hb-results__snip">' + snippet(r.entry, r.hit) + '</span>' +
+              '</a></li>';
+          }).join('');
+      }
+      results.innerHTML = html;
+
+      var total = matches.reduce(function (n, m) { return n + m.hits.length; }, 0);
+      if (matches.length && related.length) {
+        count.textContent = total + ' match' + (total === 1 ? '' : 'es') + ' in ' +
+          matches.length + ' section' + (matches.length === 1 ? '' : 's') + ', plus ' +
+          related.length + ' related.';
+      } else if (matches.length) {
+        count.textContent = total + ' match' + (total === 1 ? '' : 'es') + ' in ' +
+          matches.length + ' section' + (matches.length === 1 ? '' : 's') + '.';
+      } else {
+        count.textContent = 'No exact match — showing ' + related.length +
+          ' related section' + (related.length === 1 ? '' : 's') + '.';
+      }
       results.hidden = false;
       input.setAttribute('aria-expanded', 'true');
     }
