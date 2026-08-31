@@ -59,6 +59,7 @@ ICON = {
     "cross": '<svg viewBox="0 0 32 40" aria-hidden="true" fill="currentColor"><path d="M13 0h6v10h10v6H19v24h-6V16H3v-6h10z"/></svg>',
     "quote": '<svg viewBox="0 0 32 32" aria-hidden="true" fill="currentColor"><path d="M13 6v8H8c0 4 1 6 4 7l-2 5c-5-2-7-6-7-13V6zm16 0v8h-5c0 4 1 6 4 7l-2 5c-5-2-7-6-7-13V6z"/></svg>',
     "star": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.3-6.2 3.3L7 14.2l-5-4.9 6.9-1z"/></svg>',
+    "search": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 2a8 8 0 1 0 4.9 14.3l5.4 5.4 1.4-1.4-5.4-5.4A8 8 0 0 0 10 2m0 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12"/></svg>',
     "alert": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22zm0 6a1 1 0 0 1 1 1v5a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1m0 9.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5"/></svg>',
 }
 
@@ -885,6 +886,18 @@ def handbook_page():
     </div>
   </div>
 </section>
+
+<div class="wrap hb-search-wrap" data-hb-search hidden>
+  <div class="hb-search">
+    <span class="hb-search__icon" aria-hidden="true">{ICON['search']}</span>
+    <label class="sr-only" for="hb-q">Search the handbook</label>
+    <input type="search" id="hb-q" placeholder="Search the handbook&hellip;" autocomplete="off"
+           role="combobox" aria-expanded="false" aria-controls="hb-results" aria-autocomplete="list">
+    <button class="hb-search__clear" type="button" hidden aria-label="Clear search">&times;</button>
+  </div>
+  <p class="hb-search__count" id="hb-search-count" role="status"></p>
+  <ul class="hb-results" id="hb-results" hidden></ul>
+</div>
 
 <div class="wrap hb-layout">
   <nav class="hb-toc" aria-labelledby="hb-toc-h">

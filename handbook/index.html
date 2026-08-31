@@ -59,6 +59,18 @@
   </div>
 </section>
 
+<div class="wrap hb-search-wrap" data-hb-search hidden>
+  <div class="hb-search">
+    <span class="hb-search__icon" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 2a8 8 0 1 0 4.9 14.3l5.4 5.4 1.4-1.4-5.4-5.4A8 8 0 0 0 10 2m0 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12"/></svg></span>
+    <label class="sr-only" for="hb-q">Search the handbook</label>
+    <input type="search" id="hb-q" placeholder="Search the handbook&hellip;" autocomplete="off"
+           role="combobox" aria-expanded="false" aria-controls="hb-results" aria-autocomplete="list">
+    <button class="hb-search__clear" type="button" hidden aria-label="Clear search">&times;</button>
+  </div>
+  <p class="hb-search__count" id="hb-search-count" role="status"></p>
+  <ul class="hb-results" id="hb-results" hidden></ul>
+</div>
+
 <div class="wrap hb-layout">
   <nav class="hb-toc" aria-labelledby="hb-toc-h">
     <h2 id="hb-toc-h">Contents</h2>

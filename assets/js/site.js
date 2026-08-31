@@ -146,6 +146,159 @@
     if (label) label.textContent = 'back to ' + known[path];
   }
 
+  /* -------------------------------------------------------- handbook search
+     Indexes each section's text once on load, then matches either the whole
+     phrase or every word typed. Results name the section, count the hits and
+     show the surrounding sentence, and jump to that section when clicked. */
+  function initHandbookSearch() {
+    var wrap = document.querySelector('[data-hb-search]');
+    if (!wrap) return;
+    var sections = Array.prototype.slice.call(document.querySelectorAll('.hb-section'));
+    if (!sections.length) return;
+
+    var input = wrap.querySelector('#hb-q');
+    var results = wrap.querySelector('#hb-results');
+    var count = wrap.querySelector('#hb-search-count');
+    var clear = wrap.querySelector('.hb-search__clear');
+
+    // Build the index: collapse whitespace so snippets read cleanly.
+    var index = sections.map(function (sec) {
+      var h = sec.querySelector('h2');
+      var text = (sec.textContent || '').replace(/\s+/g, ' ').trim();
+      return {
+        id: sec.id,
+        title: h ? h.textContent.trim() : sec.id,
+        text: text,
+        lower: text.toLowerCase()
+      };
+    });
+
+    wrap.hidden = false;   // only usable with scripting, so reveal it here
+
+    function esc(s) {
+      return s.replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+
+    // Where does this entry match, and how often?
+    function findHits(entry, phrase, words) {
+      var hits = [];
+      hits.phrase = false;
+      var i = entry.lower.indexOf(phrase);
+      while (i !== -1 && hits.length < 200) {
+        hits.push([i, i + phrase.length]);
+        i = entry.lower.indexOf(phrase, i + phrase.length);
+      }
+      if (hits.length) { hits.phrase = true; return hits; }
+      // no whole-phrase match: require every word to appear somewhere
+      var all = words.every(function (w) { return entry.lower.indexOf(w) !== -1; });
+      if (!all) return [];
+      words.forEach(function (w) {
+        var j = entry.lower.indexOf(w);
+        while (j !== -1 && hits.length < 200) {
+          hits.push([j, j + w.length]);
+          j = entry.lower.indexOf(w, j + w.length);
+        }
+      });
+      hits.sort(function (a, b) { return a[0] - b[0]; });
+      return hits;
+    }
+
+    function snippet(entry, hit) {
+      var pad = 70;
+      var from = Math.max(0, hit[0] - pad);
+      var to = Math.min(entry.text.length, hit[1] + pad);
+      // don't cut mid-word
+      if (from > 0) { var sp = entry.text.indexOf(' ', from); if (sp > -1 && sp < hit[0]) from = sp + 1; }
+      if (to < entry.text.length) { var sp2 = entry.text.lastIndexOf(' ', to); if (sp2 > hit[1]) to = sp2; }
+      return (from > 0 ? '&hellip;' : '') +
+        esc(entry.text.slice(from, hit[0])) +
+        '<mark>' + esc(entry.text.slice(hit[0], hit[1])) + '</mark>' +
+        esc(entry.text.slice(hit[1], to)) +
+        (to < entry.text.length ? '&hellip;' : '');
+    }
+
+    function render(q) {
+      var phrase = q.trim().toLowerCase().replace(/\s+/g, ' ');
+      if (phrase.length < 2) {
+        results.hidden = true;
+        results.innerHTML = '';
+        count.textContent = '';
+        input.setAttribute('aria-expanded', 'false');
+        clear.hidden = !q;
+        return;
+      }
+      var words = phrase.split(' ').filter(Boolean);
+      var matches = [];
+      index.forEach(function (entry) {
+        var hits = findHits(entry, phrase, words);
+        if (hits.length) matches.push({ entry: entry, hits: hits });
+      });
+      matches.sort(function (a, b) {
+        if (a.hits.phrase !== b.hits.phrase) return a.hits.phrase ? -1 : 1;
+        return b.hits.length - a.hits.length;
+      });
+
+      clear.hidden = false;
+      if (!matches.length) {
+        results.innerHTML = '<li class="hb-results__empty">No sections match &ldquo;' + esc(q.trim()) + '&rdquo;.</li>';
+        results.hidden = false;
+        count.textContent = 'No matches.';
+        input.setAttribute('aria-expanded', 'true');
+        return;
+      }
+
+      var total = matches.reduce(function (n, m) { return n + m.hits.length; }, 0);
+      count.textContent = total + ' match' + (total === 1 ? '' : 'es') + ' in ' +
+        matches.length + ' section' + (matches.length === 1 ? '' : 's') + '.';
+
+      results.innerHTML = matches.map(function (m) {
+        return '<li><a href="#' + m.entry.id + '" data-hb-jump="' + m.entry.id + '">' +
+          '<span class="hb-results__title">' + esc(m.entry.title) +
+          '<span class="hb-results__n">' + m.hits.length + '</span></span>' +
+          '<span class="hb-results__snip">' + snippet(m.entry, m.hits[0]) + '</span>' +
+          '</a></li>';
+      }).join('');
+      results.hidden = false;
+      input.setAttribute('aria-expanded', 'true');
+    }
+
+    var timer;
+    input.addEventListener('input', function () {
+      clearTimeout(timer);
+      var v = input.value;
+      timer = setTimeout(function () { render(v); }, 120);
+    });
+
+    clear.addEventListener('click', function () {
+      input.value = '';
+      render('');
+      input.focus();
+    });
+
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { input.value = ''; render(''); }
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        var first = results.querySelector('a');
+        if (first) first.click();
+      }
+    });
+
+    // Flash the section briefly so it is obvious where you landed.
+    results.addEventListener('click', function (e) {
+      var a = e.target.closest('a[data-hb-jump]');
+      if (!a) return;
+      var sec = document.getElementById(a.getAttribute('data-hb-jump'));
+      if (!sec) return;
+      sec.classList.remove('is-target');
+      void sec.offsetWidth;
+      sec.classList.add('is-target');
+      setTimeout(function () { sec.classList.remove('is-target'); }, 1600);
+    });
+  }
+
   /* ------------------------------------------------------------------ boot */
   function ready(fn) {
     if (document.readyState !== 'loading') fn();
@@ -155,6 +308,7 @@
   ready(function () {
     initNav();
     initBackLink();
+    initHandbookSearch();
     document.querySelectorAll('.carousel').forEach(initCarousel);
     document.querySelectorAll('[data-accordion-toggle]').forEach(initAccordion);
   });

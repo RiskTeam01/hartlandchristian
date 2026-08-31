@@ -47,7 +47,7 @@ handbook/               the HCS Handbook 2026-2027, typeset from the school's Wo
 menu/                   plain link list, kept so the old /menu URL still resolves
 404.html
 assets/css/site.css     design tokens and every section pattern
-assets/js/site.js       mobile nav, carousels, statement-of-faith accordion
+assets/js/site.js       mobile nav, carousels, accordion, handbook search
 assets/img/             41 images, downloaded from the previous site
 tools/build.py          page content and the generator
 tools/handbook.py       handbook content, kept apart so build.py stays readable
@@ -124,6 +124,13 @@ current `@outlook.com` one throughout.
 contents-rail entry, so adding, editing or reordering a section is a local
 change. When the school issues a new handbook, update that file and bump
 `SCHOOL_YEAR` and `REVISED` at the top.
+
+The handbook page carries a search box that indexes each section's text in the
+browser on load — no build step and no service to keep running. It matches the
+whole phrase first, falling back to sections containing every word typed, and
+lists the section, its hit count and the surrounding sentence. Sections are
+indexed straight from the rendered DOM, so new sections are searchable with no
+extra work.
 
 ## Things worth knowing
 
