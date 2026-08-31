@@ -83,12 +83,12 @@ These are the deliberate differences:
 - **Romans 8:37** is set in normal capitalisation with "Him" capitalised, and
   reads "more than conquerors" on every page. The old site wrote "then" on all
   pages except academics; that was corrected at the school's request.
-- **Other original wording is preserved verbatim**, including its typos: "ecompasses",
-  "throughoughly", "out students", "HSC competes", "unforseen", "on the basis or
+- **Spelling and grammar corrected** across the site at the school's request.
+  Twelve fixes, all in copy inherited from the old site: "ecompasses",
+  "throughoughly", "unforseen", "out students", "HSC competes", "on the basis or
   race", "attend our game", "externally existing", "of the Sons" in Matthew
-  28:19, and "Join us as journey together". These are deliberate — the brief is
-  to mirror the live site exactly. Fix them in `tools/build.py` if the school
-  ever wants them corrected.
+  28:19, "Join us as journey together", "grades 1-2 serves", and a missing "and"
+  in the academics statement of faith.
 
 ### Two deliberate deviations
 

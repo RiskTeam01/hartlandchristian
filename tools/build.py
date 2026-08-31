@@ -344,9 +344,9 @@ def about():
 
     overview = [
         ("Our Mission", "At HCS, we recognize the essential role parents play in shaping their children&rsquo;s spiritual foundation. We complement this parental guidance by fostering an education that molds students into Christ-like leaders. Our curriculum seamlessly weaves faith into academics, character building, and spiritual development to equip students with the skills and values needed for success in an ever-evolving world. Our ultimate purpose is to empower students to positively impact their communities, embodying the teachings of Jesus."),
-        ("Our Curriculum", "HCS proudly utilizes the Accelerated Christian Education (ACE) curriculum, trusted since 1970 for its academic excellence and integration of Christian principles. ACE is globally recognized, providing students with a comprehensive education that fosters both academic excellence and spiritual growth. We ensure out students are equipped for success in a supportive Christian environment."),
+        ("Our Curriculum", "HCS proudly utilizes the Accelerated Christian Education (ACE) curriculum, trusted since 1970 for its academic excellence and integration of Christian principles. ACE is globally recognized, providing students with a comprehensive education that fosters both academic excellence and spiritual growth. We ensure our students are equipped for success in a supportive Christian environment."),
         ("Our Faculty", "Our faculty is comprised of passionate individuals dedicated to fostering both academic excellence and spiritual growth in our students. Each member of our team is a born-again believer who has committed their life to Christ and to the mission of our school."),
-        ("Our Athletics", "At HCS, we offer volleyball for girls and basketball for boys, catering to students in grades 6-12 who meet eligibility criteria. We promote a supportive atmosphere, encouraging good sportsmanship from all attendees. HSC competes with other Christian schools in the ACEL Christian Education league."),
+        ("Our Athletics", "At HCS, we offer volleyball for girls and basketball for boys, catering to students in grades 6-12 who meet eligibility criteria. We promote a supportive atmosphere, encouraging good sportsmanship from all attendees. HCS competes with other Christian schools in the ACEL Christian Education league."),
         ("Our Conduct", "Our conduct guidelines are rooted in Christ&rsquo;s teachings, emphasizing love for God and others. Students are expected to show respect, obey rules cheerfully, and use good manners. Further details on conduct expectation can be found in our demerit policy."),
         ("Our Resources", 'For additional information, please consult the '
          '<a class="doc-link" href="/handbook">HCS Handbook 2026-2027</a>.'),
@@ -407,7 +407,7 @@ def about():
 def church():
     missions = [
         ("Our Missions", None, None, None, f"""<div class="verse-card" style="margin-inline:auto">
-  <p>&ldquo;Go therefore and make disciples of all the nations, baptizing them in the name of the Father and of the Sons and of the Holy Spirit, teaching them to observe all things that I have commanded you; I am with you always, even to the end of the age.&rdquo;</p>
+  <p>&ldquo;Go therefore and make disciples of all the nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, teaching them to observe all things that I have commanded you; I am with you always, even to the end of the age.&rdquo;</p>
   <cite>&mdash;Matthew 28:19-20 KJV</cite>
 </div>"""),
     ]
@@ -474,7 +474,7 @@ def church():
         <div class="prose mt-2" style="font-family:'Times New Roman',Times,serif;font-size:1.0625rem;letter-spacing:.02em">
           <p>Welcome to Hartland Baptist Church! We&rsquo;re delighted to have you here. At HBC, our mission is rooted in the greatest commandments: to love God with all our heart, soul, mind, and strength, and to love our neighbors as ourselves. We are a community of believers committed to living out this mission in everything we do.</p>
           <p>Our passion is to go and make disciples, sharing the transformative love of Jesus Christ with all whom we encounter. As we gather together in worship, fellowship, and service, we seek to grow deeper in our faith and reach out to those in need, both locally and globally.</p>
-          <p>Join us as journey together in faith, hope, and love, seeking to glorify God and make a difference in the world.</p>
+          <p>Join us as we journey together in faith, hope, and love, seeking to glorify God and make a difference in the world.</p>
         </div>
       </div>
     </div>
@@ -532,9 +532,9 @@ def church():
 def academics():
     faith = [
         'We <strong>believe</strong> that &ldquo;all scripture is given by inspiration of god&rdquo; (2 Timothy 3:16 KJV), by which we understand the whole bible is inspired in the sense that holy men &ldquo;were moved by the holy spirit&rdquo; to write the very words of scripture.',
-        'we <strong>believe</strong> that god is one god, externally existing in three persons &mdash; the father, the son, and the holy spirit &mdash; having precisely the same nature, attributes, and perfections, and worthy of precisely the same homage, confidence and obedience.',
+        'we <strong>believe</strong> that god is one god, eternally existing in three persons &mdash; the father, the son, and the holy spirit &mdash; having precisely the same nature, attributes, and perfections, and worthy of precisely the same homage, confidence and obedience.',
         'we <strong>believe</strong> that the father is perfect in holiness, infinite in wisdom, measureless in power. we rejoice that he concerns himself mercifully in the affairs of men, that he hears and answers prayers, and that he saves from sin and death all who come to him through the lord jesus christ.',
-        'we <strong>believe</strong> that, as provided and proposed by, as preannounced in the prophecies of scriptures, the eternal son of god came into the world that he might manifest god to men, fulfill prophecy, and become the redeemer of a lost world. to this end, he was born of a virgin, received a human body, and a sinless human nature.',
+        'we <strong>believe</strong> that, as provided and proposed by, and as preannounced in the prophecies of scriptures, the eternal son of god came into the world that he might manifest god to men, fulfill prophecy, and become the redeemer of a lost world. to this end, he was born of a virgin, received a human body, and a sinless human nature.',
     ]
     faith_html = "".join(f"<li>{f}</li>" for f in faith)
 
@@ -556,7 +556,7 @@ def academics():
     <h2 id="early-h">Early Learning</h2>
     <div class="band__rule" aria-hidden="true"></div>
     <p class="band__grades">Grades 1-2</p>
-    <p>Our early learning journey begins with 1st through 2nd grade at {SCHOOL}. Designed as the foundational years for our young learners, grades 1-2 serves as the cornerstone of their educational experience.</p>
+    <p>Our early learning journey begins with 1st through 2nd grade at {SCHOOL}. Designed as the foundational years for our young learners, grades 1-2 serve as the cornerstone of their educational experience.</p>
     <p>Rooted in Christian values, our curriculum integrates hands-on learning experiences with teachings about God&rsquo;s love and teachings. We cover essential subjects such as language arts, math, science, and social studies. With dedicated teachers who prioritize individual attention, grades 1-2 set the stage for future success, both academically and spiritually.</p>
   </div>
 </section>
@@ -567,7 +567,7 @@ def academics():
     <h2 id="primary-h">primary learning</h2>
     <div class="band__rule" aria-hidden="true"></div>
     <p class="band__grades">grades 3-6</p>
-    <p>Our primary education program ecompasses grades 3-6, where students continue their journey of academic and personal growth. Building upon the foundational skills developed in kindergarten, our elementary curriculum emphasizes both academic excellence and character development.</p>
+    <p>Our primary education program encompasses grades 3-6, where students continue their journey of academic and personal growth. Building upon the foundational skills developed in kindergarten, our elementary curriculum emphasizes both academic excellence and character development.</p>
     <p>In grades 3-6, students engage in a diverse range of subjects including language arts, mathematics, science, social studies, and more. Our curriculum is designed to challenge students intellectually while fostering a love for learning and critical thinking skills.</p>
   </div>
 </section>
@@ -600,7 +600,7 @@ def academics():
 
 def admissions():
     steps = [
-        ("please read our handbook throughoughly",
+        ("please read our handbook thoroughly",
          'Before proceeding with enrollment, we encourage all prospective families to thoroughly review our handbook. This document outlines our school policies, procedures, and expectations, ensuring that all parties have a clear understanding of our educational philosophy and community standards. Our handbook can be found <a href="/handbook">here</a>.'),
         ("complete and submit the application form",
          'After reviewing our handbook, the next step is to complete and submit the application form. This form provides us with essential information about the student, their academic history, and their family background, helping us ensure that we can meet the student&rsquo;s educational needs. To obtain our application form, kindly <a href="/contact">contact us</a>.'),
@@ -629,7 +629,7 @@ def admissions():
     <h1>admissions</h1>
     <div class="rule" aria-hidden="true"></div>
     <div class="prose mt-2" style="max-width:920px;margin-inline:auto;text-align:center">
-      <p>At HCS we embrace diversity and inclusivity as core principles in our admissions process. We value each applicant as an individual and assess them solely based on their academic achievements, without any discrimination on the basis or race, color, sex, or national origin. We believe in creating a welcoming and supportive environment where every student can thrive academically, socially, and spiritually.</p>
+      <p>At HCS we embrace diversity and inclusivity as core principles in our admissions process. We value each applicant as an individual and assess them solely based on their academic achievements, without any discrimination on the basis of race, color, sex, or national origin. We believe in creating a welcoming and supportive environment where every student can thrive academically, socially, and spiritually.</p>
       <p>We appreciate your interest in our school, which is dedicated to equipping students to navigate an ever-changing world with a Christian worldview. To begin the enrollment process, please refer to the information below. For further assistance, feel free to <a href="/contact">contact us</a>.</p>
     </div>
   </div>
@@ -701,7 +701,7 @@ def athletics():
       <div class="prose">
         <p>At {SCHOOL}, our athletic program is dedicated to fostering physical discipline, promoting good sportsmanship, and nurturing Christian character development. Our school mascot, the Conqueror, symbolizes the virtues of determination, resilience, and triumph &mdash; qualities that align with our faith and values. We believe that through sports, students have the opportunity to embody these traits and grow spiritually.</p>
         <p>Throughout the school year, we offer girls volleyball grades 6-12 and guys basketball for grades 6-12, providing consistent opportunities for both genders to participate and excel in athletics while reinforcing the values of teamwork and dedication. HCS competes with other Christian schools in the ACEL (Athletes for Christian Education League), an athletic league comprising nine private Christian schools.</p>
-        <p>We warmly invite students, staff, parents/guardians, friends, and relatives to attend our game with good sportsmanship and encouragement for all teams. Additionally, we welcome parents/guardians to contribute by volunteering in our snack shop, fostering a sense of community and support within our school.</p>
+        <p>We warmly invite students, staff, parents/guardians, friends, and relatives to attend our games with good sportsmanship and encouragement for all teams. Additionally, we welcome parents/guardians to contribute by volunteering in our snack shop, fostering a sense of community and support within our school.</p>
       </div>
       <div class="athletics-lede__media">
         <img src="/assets/img/conquerors-crest.png" alt="The Hartland Christian School Conquerors crest" loading="lazy" width="900" height="1072">
@@ -736,7 +736,7 @@ def tuition():
     </div>
     <div class="tuition-note prose" style="margin-top:clamp(2rem,4vw,3rem)">
       <p>At {SCHOOL}, we prioritize affordable education without compromising on the quality of our Christian teachings. We place a high value on maintaining a good testimony with our creditors. Therefore we ask that you help us to be able to keep our financial commitments by paying your tuition bills and fees faithfully and in a timely manner. Tuition responsibility is spread over 10 months, from August to May, with statements dispatched in the first week of each month and payment due by month-end. A $25.00 late fee will apply if payments are missed, with final payment expected before the school year concludes.</p>
-      <p>We recognize that unforseen financial difficulties can arise. If you foresee a delay in your payment, please contact the school immediately to discuss arrangements with the board. Failure to communicate regarding missed payments may result in a temporary withdrawal of your child from school until financial stability is regained.</p>
+      <p>We recognize that unforeseen financial difficulties can arise. If you foresee a delay in your payment, please contact the school immediately to discuss arrangements with the board. Failure to communicate regarding missed payments may result in a temporary withdrawal of your child from school until financial stability is regained.</p>
     </div>
     <div class="tuition-actions">
       <a class="btn btn--solid" href="/tuition/fees">tuition &amp; fees information</a>
