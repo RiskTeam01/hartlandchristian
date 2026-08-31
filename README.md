@@ -80,8 +80,10 @@ These are the deliberate differences:
   JSON-LD block, `sitemap.xml` and `robots.txt`.
 - **Email address.** Published as a plain `mailto:` link instead of the old
   Cloudflare obfuscation, so it works without JavaScript.
-- **Original wording is preserved verbatim**, including its typos: "more then
-  conquerors" (but "than" on academics, which really does differ), "ecompasses",
+- **Romans 8:37** is set in normal capitalisation with "Him" capitalised, and
+  reads "more than conquerors" on every page. The old site wrote "then" on all
+  pages except academics; that was corrected at the school's request.
+- **Other original wording is preserved verbatim**, including its typos: "ecompasses",
   "throughoughly", "out students", "HSC competes", "unforseen", "on the basis or
   race", "attend our game", "externally existing", "of the Sons" in Matthew
   28:19, and "Join us as journey together". These are deliberate — the brief is

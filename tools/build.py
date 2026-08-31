@@ -146,9 +146,7 @@ def header(active, church=False):
 </header>"""
 
 
-def cta(enroll="/admissions", visit="/contact", ask="/contact", verse_than=False):
-    # every page misspells this as "then" except academics, which does not
-    conq = "than" if verse_than else "then"
+def cta(enroll="/admissions", visit="/contact", ask="/contact"):
 
     return f"""<section class="section section--navy" aria-labelledby="cta-h">
   <div class="wrap">
@@ -163,7 +161,7 @@ def cta(enroll="/admissions", visit="/contact", ask="/contact", verse_than=False
         <a class="btn btn--cta" href="{ask}">questions? contact us</a>
       </div>
     </div>
-    <p class="cta__verse">&ldquo;In all these things we are more {conq} conquerors through Him that loved us.&rdquo; &mdash; Romans 8:37 KJV</p>
+    <p class="cta__verse">&ldquo;In all these things we are more than conquerors through Him that loved us.&rdquo; &mdash; Romans 8:37 KJV</p>
   </div>
 </section>"""
 
@@ -594,7 +592,7 @@ def academics():
   </div>
 </section>
 
-{cta(verse_than=True)}"""
+{cta()}"""
 
 
 def admissions():
