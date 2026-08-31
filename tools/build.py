@@ -356,7 +356,7 @@ def about():
   <p>{b}</p>
 </div>""" for t, b in overview)
 
-    return f"""<section class="section section--tight" aria-labelledby="verse-h">
+    return f"""<section class="section section--tight section--photo" style="--bg:url('/assets/img/bg-scripture.jpg');--bg-opacity:.4" aria-labelledby="verse-h">
   <div class="wrap">
     <div class="verse-panel">
       <h2 id="verse-h" class="sr-only">Deuteronomy 6:4-7</h2>
@@ -411,20 +411,23 @@ def church():
   <cite>&mdash;Matthew 28:19-20 KJV</cite>
 </div>"""),
     ]
+    # Each slide carries a faded photograph of where that family serves, at the
+    # opacity the original used - 50% behind the opening verse, 20% behind the
+    # rest - so the picture stays scenery and the family stays the subject.
     people = [
-        ("The King Family", "mission-king.png", "Dwayne &amp; Kathy King", "Sutton, Alaska", "Kingdom Air Corps", False),
-        ("The Page Family", "mission-page.jpg", "John &amp; Christy Page", "South Africa", "Word of Life", False),
-        ("The Gbeblewou Family", "mission-gbeblewou.jpg", "Theo &amp; Isabelle Gbeblewou", "West Africa", "Landmark Baptist Missions", False),
-        ("The Briscoe Family", "mission-briscoe.jpg", "Eric &amp; Diane Briscoe", "Boston, Massachusetts", "Open Air Campaigners", True),
-        ("The Steward Family", "mission-steward.jpg", "Curtis &amp; Diane Steward", "South America", "Gospel Mission of South America", False),
+        ("The King Family", "mission-king.png", "Dwayne &amp; Kathy King", "Sutton, Alaska", "Kingdom Air Corps", False, "bg-alaska.jpg"),
+        ("The Page Family", "mission-page.jpg", "John &amp; Christy Page", "South Africa", "Word of Life", False, "bg-south-africa.jpg"),
+        ("The Gbeblewou Family", "mission-gbeblewou.jpg", "Theo &amp; Isabelle Gbeblewou", "West Africa", "Landmark Baptist Missions", False, "bg-west-africa.jpg"),
+        ("The Briscoe Family", "mission-briscoe.jpg", "Eric &amp; Diane Briscoe", "Boston, Massachusetts", "Open Air Campaigners", True, "bg-boston.jpg"),
+        ("The Steward Family", "mission-steward.jpg", "Curtis &amp; Diane Steward", "South America", "Gospel Mission of South America", False, "bg-south-america.jpg"),
     ]
-    slides = [f"""<div class="mission-slide" style="grid-template-columns:minmax(0,1fr)">
+    slides = [f"""<div class="mission-slide mission-slide--bg" style="--bg:url('/assets/img/bg-missions-map.jpg');--bg-opacity:.5;grid-template-columns:minmax(0,1fr)">
   <h3>Our Missions</h3>
   {missions[0][4]}
 </div>"""]
-    for name, img, who, where, org, tall in people:
+    for name, img, who, where, org, tall, bg in people:
         cls = "mission-slide__media mission-slide__media--tall" if tall else "mission-slide__media"
-        slides.append(f"""<div class="mission-slide">
+        slides.append(f"""<div class="mission-slide mission-slide--bg" style="--bg:url('/assets/img/{bg}')">
   <h3>Our Missionaries: {name}</h3>
   <div class="mission-facts">
     <div>{ICON['building']}<span><strong>Name:</strong> {who}</span></div>
@@ -441,7 +444,7 @@ def church():
         ("Biblical Ministries Worldwide", "Spain"),
     ]
     other_html = "".join(f"<li><h4>{n}</h4><p>&mdash; {p}</p></li>" for n, p in others)
-    slides.append(f"""<div>
+    slides.append(f"""<div class="mission-slide--bg" style="--bg:url('/assets/img/bg-maine.jpg')">
   <h3 class="mission-slide" style="display:block;text-align:center;margin-bottom:2.5rem">Other Missions</h3>
   <ul class="other-missions">{other_html}</ul>
 </div>""")
@@ -478,7 +481,7 @@ def church():
   </div>
 </section>
 
-<section class="banner-split">
+<section class="banner-split banner-split--photo" style="--bg:url('/assets/img/bg-empowering.jpg')">
   <h2>Empowering Faith, Embracing Community</h2>
 </section>
 

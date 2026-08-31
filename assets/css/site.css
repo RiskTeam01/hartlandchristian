@@ -644,7 +644,37 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .service-directions:hover .arw { transform: translateX(4px); }
 
 .banner-split { position: relative; display: grid; place-items: center; min-height: clamp(220px, 30vw, 320px); background: var(--navy); text-align: center; padding: clamp(2rem, 5vw, 3rem) var(--gutter); }
-.banner-split h2 { font-family: var(--f-display); font-weight: 400; color: #fff; letter-spacing: .3em; font-size: clamp(1.35rem, 3.4vw, 2.125rem); line-height: 1.4; text-indent: .3em; }
+.banner-split h2 { font-family: var(--f-display); font-weight: 400; color: #fff; letter-spacing: .3em; font-size: clamp(1.35rem, 3.4vw, 2.125rem); line-height: 1.4; text-indent: .3em; position: relative; z-index: 1; }
+/* photographic band: the picture carries it, with a scrim so the words hold */
+.banner-split--photo { background: #1a2540; overflow: hidden; }
+.banner-split--photo::before {
+  content: ""; position: absolute; inset: 0; z-index: 0;
+  background-image: var(--bg); background-size: cover; background-position: center;
+}
+.banner-split--photo::after {
+  content: ""; position: absolute; inset: 0; z-index: 0;
+  background: rgba(20, 34, 68, .45);
+}
+
+/* A faded photograph behind a section. The image sits in a pseudo-element at
+   its own opacity so the content above keeps full contrast. */
+.section--photo { position: relative; isolation: isolate; overflow: hidden; }
+.section--photo::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background-image: var(--bg); background-size: cover; background-position: center;
+  opacity: var(--bg-opacity, .2);
+}
+.section--photo > * { position: relative; }
+
+/* Each missionary slide sits on a faded photograph of where they serve. The
+   image is a pseudo-element at 20% (50% on the opening verse) so it reads as
+   scenery rather than competing with the family. */
+.mission-slide--bg { position: relative; isolation: isolate; padding: clamp(1.5rem, 3vw, 2.5rem); }
+.mission-slide--bg::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background-image: var(--bg); background-size: cover; background-position: center;
+  opacity: var(--bg-opacity, .2);
+}
 
 .mission-slide { display: grid; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; grid-template-columns: minmax(0, 1fr); }
 @media (min-width: 860px) { .mission-slide { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
