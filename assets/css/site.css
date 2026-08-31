@@ -664,7 +664,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .team-slide { text-align: center; }
 .team-slide h3 { font-family: var(--f-display); font-size: clamp(1.75rem, 4vw, 2.75rem); letter-spacing: .06em; color: var(--olive); line-height: 1.2; }
 .team-slide__media { margin-top: clamp(1.5rem, 3vw, 2.25rem); }
-.team-slide__media img { width: 100%; aspect-ratio: 1039 / 636; object-fit: cover; }
+.team-slide__media img { width: 100%; aspect-ratio: 1800 / 1286; object-fit: cover; }
 .team-slide__caption { margin-top: 1.5rem; font-family: var(--f-body); font-weight: 600; text-transform: uppercase; letter-spacing: .2em; font-size: .9rem; line-height: 1.9; color: var(--forest); }
 .collage { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: clamp(1.5rem, 3vw, 2.25rem); }
 @media (min-width: 780px) { .collage { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
@@ -675,7 +675,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .athletics-lede { display: grid; gap: clamp(2rem, 5vw, 3.5rem); grid-template-columns: minmax(0, 1fr); align-items: start; }
 @media (min-width: 900px) { .athletics-lede { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); } }
 .athletics-lede__media { background: #fff; padding: 10px; border: 1px solid var(--grey); }
-.athletics-lede__media img { width: 100%; aspect-ratio: 408 / 574; object-fit: cover; }
+.athletics-lede__media img { width: 100%; height: auto; object-fit: contain; }
 
 /* =========================================================== tuition page */
 .tuition-note { max-width: 940px; margin-inline: auto; }

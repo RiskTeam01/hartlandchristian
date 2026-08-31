@@ -660,7 +660,7 @@ def athletics():
         return [
             f"""<div class="team-slide">
   <h3>{name}</h3>
-  <div class="team-slide__media"><img src="/assets/img/{hero}" alt="{hero_alt}" width="1039" height="636"></div>
+  <div class="team-slide__media"><img src="/assets/img/{hero}" alt="{hero_alt}" width="1800" height="1286"></div>
   <p class="team-slide__caption">{caption}</p>
 </div>""",
             f"""<div class="team-slide">
@@ -671,17 +671,17 @@ def athletics():
         ]
 
     bball = team("boys basketball", "basketball-team.jpg",
-                 "The Hartland Christian School boys basketball team",
+                 "The Hartland Christian School boys basketball team, 2025-2026",
                  "headcoach: Mark Hansen<br>assistant coaches: Ben Clukey, Aaron Lamoreau, Rick Savage",
                  bball_years, "Boys basketball")
     vball = team("girls volleyball", "volleyball-team.jpg",
-                 "The Hartland Christian School girls volleyball team",
+                 "The Hartland Christian School girls volleyball team, 2025-2026",
                  "headcoach: Rachael Parker<br>assistant coach: Julia Brooks",
                  vball_years, "Girls volleyball")
 
     return f"""<section class="hero hero--contain" style="background:#fff">
   <div class="wrap" style="padding-block:1.5rem">
-    <img src="/assets/img/vball.jpg" alt="Hartland Christian School volleyball in action" width="921" height="443" fetchpriority="high" style="margin-inline:auto">
+    <img src="/assets/img/vball.jpg" alt="The Hartland Conquerors, 2025-2026" width="1800" height="1263" fetchpriority="high" style="margin-inline:auto">
   </div>
 </section>
 
@@ -701,7 +701,7 @@ def athletics():
         <p>We warmly invite students, staff, parents/guardians, friends, and relatives to attend our game with good sportsmanship and encouragement for all teams. Additionally, we welcome parents/guardians to contribute by volunteering in our snack shop, fostering a sense of community and support within our school.</p>
       </div>
       <div class="athletics-lede__media">
-        <img src="/assets/img/conquerors-crest.jpg" alt="The Hartland Christian School Conquerors crest" loading="lazy" width="408" height="574">
+        <img src="/assets/img/conquerors-crest.png" alt="The Hartland Christian School Conquerors crest" loading="lazy" width="900" height="1072">
       </div>
     </div>
   </div>
