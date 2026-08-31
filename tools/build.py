@@ -133,7 +133,13 @@ def header(active, church=False):
     return f"""<header class="site-header">
   <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">{ICON['burger']}</button>
   <nav class="site-nav" id="site-nav" aria-label="Primary">
-    <button class="nav-close" type="button" aria-label="Close menu">{ICON['close']}</button>
+    <div class="nav-drawer__top">
+      <a class="nav-drawer__brand" href="/">
+        <img src="/assets/img/{crest}" alt="" width="34" height="52">
+        <span>{name}</span>
+      </a>
+      <button class="nav-close" type="button" aria-label="Close menu">{ICON['close']}</button>
+    </div>
     <ul class="site-nav__list site-nav__list--left">{items(left)}</ul>
     <a class="brand__crest" href="/">
       <span class="brand__est" aria-hidden="true">Est.</span>
@@ -142,6 +148,11 @@ def header(active, church=False):
       <span class="sr-only">{name}, established {est}</span>
     </a>
     <ul class="site-nav__list site-nav__list--right">{items(right)}</ul>
+    <div class="nav-drawer__actions">
+      <a href="{PHONE_HREF}">{ICON['phone']}<span>Call</span></a>
+      <a href="mailto:{EMAIL}">{ICON['mail']}<span>Email</span></a>
+      <a href="{MAPS_PLACE}" target="_blank" rel="noopener">{ICON['pin']}<span>Directions</span></a>
+    </div>
   </nav>
   <a class="{name_cls}" href="/">{name}</a>
 </header>"""

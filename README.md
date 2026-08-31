@@ -51,6 +51,7 @@ assets/js/site.js       mobile nav, carousels, accordion, handbook search
 assets/img/             41 images, downloaded from the previous site
 tools/build.py          page content and the generator
 tools/handbook.py       handbook content, kept apart so build.py stays readable
+tools/mobile-audit.py   reports tap targets under 32px, text under 12px, h-scroll
 ```
 
 ### Design tokens
@@ -70,7 +71,12 @@ These are the deliberate differences:
 - **Responsive layout.** One fluid layout replaces the separate fixed desktop and
   mobile canvases.
 - **Real mobile navigation.** The old site linked to a standalone `/menu` page;
-  this uses an in-page drawer. `/menu` still exists so the old URL keeps working.
+  this uses a full-height drawer with 58px rows, the current page marked, and
+  call / email / directions buttons pinned at the foot. `/menu` still exists so
+  the old URL keeps working.
+- **Mobile tap targets and text sizes.** `python3 tools/mobile-audit.py 390`
+  reports anything tappable under 32px, any text under 12px, and horizontal
+  scroll. Currently zero findings at both 390px and 320px.
 - **Accessibility.** Semantic landmarks, a skip link, visible focus states, alt
   text on all images, labelled carousels and an ARIA accordion. Carousels work
   with arrow keys and touch swipes.

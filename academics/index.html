@@ -26,7 +26,13 @@
 <header class="site-header">
   <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M96 241h320v32H96zM96 145h320v32H96zM96 337h320v32H96z"/></svg></button>
   <nav class="site-nav" id="site-nav" aria-label="Primary">
-    <button class="nav-close" type="button" aria-label="Close menu"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M405 136.8L375.2 107 256 226.2 136.8 107 107 136.8 226.2 256 107 375.2l29.8 29.8L256 285.8 375.2 405l29.8-29.8L285.8 256"/></svg></button>
+    <div class="nav-drawer__top">
+      <a class="nav-drawer__brand" href="/">
+        <img src="/assets/img/conquerors_logo.png" alt="" width="34" height="52">
+        <span>Hartland Christian School</span>
+      </a>
+      <button class="nav-close" type="button" aria-label="Close menu"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M405 136.8L375.2 107 256 226.2 136.8 107 107 136.8 226.2 256 107 375.2l29.8 29.8L256 285.8 375.2 405l29.8-29.8L285.8 256"/></svg></button>
+    </div>
     <ul class="site-nav__list site-nav__list--left"><li><a href="/">home</a></li><li><a href="/about">about</a></li><li><a href="/church">church</a></li><li><a href="/admissions">admissions</a></li></ul>
     <a class="brand__crest" href="/">
       <span class="brand__est" aria-hidden="true">Est.</span>
@@ -35,6 +41,11 @@
       <span class="sr-only">Hartland Christian School, established 1980</span>
     </a>
     <ul class="site-nav__list site-nav__list--right"><li><a href="/academics" aria-current="page">academics</a></li><li><a href="/athletics">athletics</a></li><li><a href="/tuition">tuition</a></li><li><a href="/contact">contact</a></li></ul>
+    <div class="nav-drawer__actions">
+      <a href="tel:+12079384250"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .7-.2 1z"/></svg><span>Call</span></a>
+      <a href="mailto:hartlandchristianschool@outlook.com"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 4-8 5-8-5V6l8 5 8-5z"/></svg><span>Email</span></a>
+      <a href="https://www.google.com/maps/place/Hartland+First+Baptist+Church/@44.8822617,-69.4478333,16.97z" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7m0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5"/></svg><span>Directions</span></a>
+    </div>
   </nav>
   <a class="brand__name" href="/">Hartland Christian School</a>
 </header>
