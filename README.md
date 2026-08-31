@@ -48,10 +48,12 @@ menu/                   plain link list, kept so the old /menu URL still resolve
 404.html
 assets/css/site.css     design tokens and every section pattern
 assets/js/site.js       mobile nav, carousels, accordion, handbook search
-assets/img/             41 images, downloaded from the previous site
+assets/img/             site imagery, sized to what the pages display
 tools/build.py          page content and the generator
 tools/handbook.py       handbook content, kept apart so build.py stays readable
 tools/mobile-audit.py   reports tap targets under 32px, text under 12px, h-scroll
+tools/optimise-images.py resizes/re-encodes assets/img to displayed size
+vercel.json             immutable caching for /assets, clean URLs
 ```
 
 ### Design tokens
@@ -80,8 +82,11 @@ These are the deliberate differences:
 - **Accessibility.** Semantic landmarks, a skip link, visible focus states, alt
   text on all images, labelled carousels and an ARIA accordion. Carousels work
   with arrow keys and touch swipes.
-- **Performance.** Images carry `width`/`height` to avoid layout shift and are
-  lazy-loaded outside carousels. No jQuery or Showit runtime.
+- **Performance.** The home page loads **486KB**, down from 6.8MB. Images are
+  sized to what the pages actually display (`tools/optimise-images.py`), carousel
+  slides hold their images in `data-src` until shown, `/assets` is cached
+  immutably with a content hash on the CSS and JS so edits still land, and there
+  is no jQuery or Showit runtime.
 - **SEO.** Per-page titles, meta descriptions, Open Graph tags, a `School`
   JSON-LD block, `sitemap.xml` and `robots.txt`.
 - **Email address.** Published as a plain `mailto:` link instead of the old

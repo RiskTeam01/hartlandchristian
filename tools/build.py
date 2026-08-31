@@ -8,6 +8,7 @@ committed alongside this script so the site can be served straight from the repo
 with no build step required at deploy time.
 """
 
+import hashlib
 import os
 import re
 import sys
@@ -89,7 +90,7 @@ LAYOUT = """<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;1,400&amp;family=Fjalla+One&amp;family=Libre+Baskerville:ital@0;1&amp;family=Montserrat:wght@300;400;600&amp;family=Playfair+Display:wght@400;500&amp;display=swap">
-<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="stylesheet" href="/assets/css/site.css?v={css_v}">
 <script type="application/ld+json">{jsonld}</script>
 </head>
 <body>
@@ -99,7 +100,7 @@ LAYOUT = """<!DOCTYPE html>
 {body}
 </main>
 {footer}
-<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/site.js?v={js_v}" defer></script>
 </body>
 </html>
 """
@@ -228,6 +229,11 @@ def carousel(cid, slides, label, fade=True, dots=True):
     out.append(f'<button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous">{arrow("prev")}</button>')
     out.append('<div class="carousel__viewport"><div class="carousel__track">')
     for i, s in enumerate(slides):
+        # only the first slide is visible on load; defer the rest
+        if i:
+            # loading="lazy" does not defer images inside display:none, so hold
+            # the URL in data-src and let the carousel swap it in on demand
+            s = re.sub(r'<img ([^>]*?)src="', r'<img \1data-src="', s)
         out.append(f'<div class="carousel__slide" role="group" aria-roledescription="slide" '
                    f'aria-label="{i + 1} of {len(slides)}">{s}</div>')
     out.append("</div></div>")
@@ -1036,8 +1042,20 @@ PAGES = [
 ]
 
 
+def asset_v(rel):
+    """Short content hash for an asset, so /assets can be cached immutably
+    while an edit still reaches every visitor on the next deploy."""
+    try:
+        with open(os.path.join(ROOT, rel), "rb") as f:
+            return hashlib.sha1(f.read()).hexdigest()[:8]
+    except FileNotFoundError:
+        return "0"
+
+
 def build():
     jsonld = JSONLD.format(email=EMAIL, fb=FACEBOOK)
+    css_v = asset_v("assets/css/site.css")
+    js_v = asset_v("assets/js/site.js")
     foot = footer().replace("{year}", "2026")
     written = []
     for entry in PAGES:
@@ -1047,6 +1065,7 @@ def build():
         html = LAYOUT.format(
             title=title, description=desc, canonical=url, school=SCHOOL, og=og,
             jsonld=jsonld, header=header(nav_active, church=is_church), body=fn(), footer=foot,
+            css_v=css_v, js_v=js_v,
         )
         dest = os.path.join(ROOT, path)
         os.makedirs(os.path.dirname(dest), exist_ok=True)

@@ -109,8 +109,31 @@
       x0 = null;
     }, { passive: true });
 
+    // Slide images are held in data-src: a display:none slide downloads every
+    // image up front otherwise, regardless of loading="lazy". Give a slide its
+    // images as it is shown, and fetch its neighbours once the browser is idle
+    // so the next click is instant without slowing the first paint.
+    function load(n) {
+      slides[n].querySelectorAll('img[data-src]').forEach(function (img) {
+        img.src = img.getAttribute('data-src');
+        img.removeAttribute('data-src');
+      });
+    }
+    function warm(i, neighbours) {
+      load(i);
+      if (!neighbours) return;
+      load((i + 1) % slides.length);
+      load((i - 1 + slides.length) % slides.length);
+    }
+    var interacted = false;
+    var _go = go;
+    go = function (i) { _go(i); warm(index, interacted); interacted = true; };
+
     root.setAttribute('data-ready', 'true');
     go(0);
+
+    var idle = window.requestIdleCallback || function (fn) { return setTimeout(fn, 2000); };
+    idle(function () { warm(index, true); });
   }
 
   /* ------------------------------------------------------------- accordion */

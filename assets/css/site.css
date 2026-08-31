@@ -341,8 +341,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .carousel__track { display: flex; transition: transform .5s ease; }
 .carousel__slide { flex: 0 0 100%; min-width: 0; }
 .carousel[data-fade="true"] .carousel__track { display: block; transition: none; }
-.carousel[data-fade="true"] .carousel__slide { display: none; }
-.carousel[data-fade="true"] .carousel__slide[data-active="true"] { display: block; animation: fade .45s ease; }
+/* only collapse to one slide once the script is running; without it every
+   slide stays visible so the content is still reachable */
+.carousel[data-ready="true"][data-fade="true"] .carousel__slide { display: none; }
+.carousel[data-ready="true"][data-fade="true"] .carousel__slide[data-active="true"] { display: block; animation: fade .45s ease; }
 @keyframes fade { from { opacity: 0 } to { opacity: 1 } }
 
 .carousel__btn {
