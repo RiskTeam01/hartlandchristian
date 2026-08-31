@@ -438,18 +438,14 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   text-align: center; color: var(--ink);
   max-width: 768px; margin: 1.75rem auto 0;
 }
+.verse-caps--lg { font-size: clamp(.75rem, 1.5vw, .875rem); max-width: 900px; }
 .verse-caps__ref { margin-top: 1.5rem; }
 @media (min-width: 760px) { .verse-caps__ref { text-align: right; padding-right: clamp(0rem, 6vw, 6rem); } }
 .page-title p { margin-top: 1.75rem; text-align: center; }
 
 /* scripture panel */
 .verse-panel { max-width: 900px; margin-inline: auto; text-align: center; }
-.verse-panel__mark { display: block; margin: 0 auto 1rem; width: 64px; color: var(--blue-deep); }
-.verse-panel p {
-  font-family: var(--f-body); font-weight: 400; font-size: .875rem;
-  letter-spacing: .26em; line-height: 1.8; text-align: center;
-}
-.verse-panel cite { display: block; margin-top: 1.25rem; font-style: normal; }
+
 
 .verse-card { background: #fff; padding: clamp(1.5rem, 4vw, 2rem); max-width: 480px; }
 /* translucent card floated over the photograph, as on the original */
@@ -496,12 +492,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   font-size: clamp(1.05rem, 2vw, 1.5rem); line-height: 1.2; padding: .7em 1.1em; text-align: center;
 }
 .overview__item p { margin-top: 1.5rem; font-size: .9375rem; line-height: 1.5; letter-spacing: .07em; text-align: left; }
+/* Reads inline at the surrounding text size — no bullet, no size jump. */
 .doc-link {
-  display: inline-block; margin-top: 1rem; font-family: var(--f-script); font-style: italic;
-  font-size: 1.35rem; color: var(--blue-link); text-decoration: none;
+  color: var(--navy); font-weight: 400; text-decoration: underline;
+  text-underline-offset: 3px; text-decoration-thickness: 1px; transition: color .25s;
 }
-.doc-link:hover { text-decoration: underline; }
-.doc-link::before { content: "• "; }
+.doc-link:hover { color: var(--blue-accent); }
 
 /* ======================================================= accordion (faith) */
 .accordion { border-top: 1px solid rgba(0,0,0,.35); }

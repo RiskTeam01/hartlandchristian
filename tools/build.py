@@ -348,8 +348,8 @@ def about():
         ("Our Faculty", "Our faculty is comprised of passionate individuals dedicated to fostering both academic excellence and spiritual growth in our students. Each member of our team is a born-again believer who has committed their life to Christ and to the mission of our school."),
         ("Our Athletics", "At HCS, we offer volleyball for girls and basketball for boys, catering to students in grades 6-12 who meet eligibility criteria. We promote a supportive atmosphere, encouraging good sportsmanship from all attendees. HSC competes with other Christian schools in the ACEL Christian Education league."),
         ("Our Conduct", "Our conduct guidelines are rooted in Christ&rsquo;s teachings, emphasizing love for God and others. Students are expected to show respect, obey rules cheerfully, and use good manners. Further details on conduct expectation can be found in our demerit policy."),
-        ("Our Resources", "For additional information, please consult our handbook, which can be found here:"
-         f'<a class="doc-link" href="/handbook">HCS Handbook 2026-2027</a>'),
+        ("Our Resources", 'For additional information, please consult the '
+         '<a class="doc-link" href="/handbook">HCS Handbook 2026-2027</a>.'),
     ]
     ov_html = "".join(f"""<div class="overview__item">
   <h3><span class="pill">{t}</span></h3>
@@ -360,12 +360,12 @@ def about():
   <div class="wrap">
     <div class="verse-panel">
       <h2 id="verse-h" class="sr-only">Deuteronomy 6:4-7</h2>
-      <span class="verse-panel__mark" aria-hidden="true">{ICON['cross']}</span>
-      <p>hear, o israel: the lord our god is one lord:<br>
+      <div class="rule-mark" aria-hidden="true"><span class="rule-mark__glyph">{ICON['quote']}</span></div>
+      <p class="verse-caps verse-caps--lg">hear, o israel: the lord our god is one lord:<br>
       and thou shalt love the lord thy god with all thine heart, and with all thy soul, and with all thy might.<br>
       and these words, which i command thee this day, shall be in thine heart:<br>
       and thou shalt teach them diligently unto thy children, and shalt talk of them when thou sittest in thine house, and when thou walkest by the way, and when thou liest down, and when thou risest up.</p>
-      <cite>&mdash; deuteronomy 6:4-7 kjv</cite>
+      <p class="verse-caps verse-caps--lg verse-caps__ref">- deuteronomy 6:4-7 kjv</p>
     </div>
   </div>
 </section>
@@ -935,8 +935,7 @@ def contact():
             <div><a href="mailto:{EMAIL}">{EMAIL}</a></div>
           </div>
         </div>
-        <p class="mt-2" style="font-size:.95rem">For additional information, please consult our handbook, which can be found here:</p>
-        <p><a class="doc-link" href="/handbook">HCS Handbook 2026-2027</a></p>
+        <p class="mt-2" style="font-size:.95rem">For additional information, please consult the <a class="doc-link" href="/handbook">HCS Handbook 2026-2027</a>.</p>
       </div>
     </div>
   </div>
