@@ -333,7 +333,17 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .card__label {
   font-family: var(--f-cond); text-transform: uppercase; text-align: center;
   font-size: 1.25rem; letter-spacing: .06em; color: var(--blue-deep); line-height: 1.2;
+  /* hug the text so the underline is exactly as wide as the word */
+  width: fit-content; margin-inline: auto; position: relative; padding-bottom: .3rem;
 }
+.card__label::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: var(--blue-accent);
+  transform: scaleX(0); transform-origin: left center;
+  transition: transform .45s cubic-bezier(.33, 1, .68, 1);
+}
+.card:hover .card__label::after,
+.card:focus-visible .card__label::after { transform: scaleX(1); }
 
 /* ============================================================== carousel */
 .carousel { position: relative; }
@@ -544,7 +554,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* ======================================================== overview grid */
 .overview { display: grid; gap: clamp(2rem, 5vw, 3.5rem) clamp(2rem, 5vw, 4rem); grid-template-columns: minmax(0, 1fr); }
 @media (min-width: 860px) { .overview { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.overview__item h3 { display: inline-block; }
+/* the pill sits centred over its paragraph rather than flush left */
+.overview__item h3 { display: block; text-align: center; }
 .pill {
   display: inline-block; background: var(--blue-pill); color: #fff; border-radius: 10px;
   font-family: var(--f-cond); text-transform: none; letter-spacing: .3em; text-indent: .3em;
